@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "812209098167",
+    "firebase_url": "https://exchangehub-f6165.firebaseio.com",
+    "project_id": "exchangehub-f6165",
+    "storage_bucket": "exchangehub-f6165.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812209098167:android:b8ae11be252a25bdd6ec32",
+        "android_client_info": {
+          "package_name": "com.example.exchangehub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812209098167-ugbqkj14edss4ptlpl5bjh7efuums3jq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.exchangehub",
+            "certificate_hash": "41e54e5af4b19288c9515b809a02966f2cc1da87"
+          }
+        },
+        {
+          "client_id": "812209098167-o31gfnl1i5lrrdk37sife6crmrncqecd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpazxJREvcsZAPr7R4qDdTBo8GeQi8x3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "812209098167-o31gfnl1i5lrrdk37sife6crmrncqecd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

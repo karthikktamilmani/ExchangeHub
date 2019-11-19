@@ -16,14 +16,12 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,7 +34,6 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
     private static EditText fullName, emailId,password, confirmPassword;
     private static TextView login;
     private static Button signUpButton;
-    private static CheckBox terms_conditions;
     private static Animation shakeAnimation;
     private static LinearLayout signupLayout;
     private FirebaseAuth firebaseAuth;
@@ -63,7 +60,6 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
         confirmPassword = (EditText) view.findViewById(R.id.confirmPassword);
         signUpButton = (Button) view.findViewById(R.id.signUpBtn);
         login = (TextView) view.findViewById(R.id.already_user);
-        terms_conditions = (CheckBox) view.findViewById(R.id.terms_conditions);
         signupLayout = (LinearLayout) view.findViewById(R.id.signup_layout);
         shakeAnimation = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.shake);
@@ -75,8 +71,7 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
             ColorStateList csl = ColorStateList.createFromXml(getResources(),
                     xrp);
 
-            login.setTextColor(csl);
-            terms_conditions.setTextColor(csl);
+           // login.setTextColor(csl);
         } catch (Exception e) {
         }
     }
@@ -93,7 +88,10 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
             case R.id.signUpBtn:
 
                 // Call checkValidation method
-                checkValidation();
+                if(checkValidation())
+                {
+                    CommonUtil.getInstance().showHomePageFragment();
+                }
                 break;
 
             case R.id.already_user:
@@ -106,7 +104,9 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
     }
 
     // Check Validation Method
-    private void checkValidation() {
+    private Boolean checkValidation() {
+        //
+        Boolean isValid = false;
 
         // Get all edittext texts
         String getFullName = fullName.getText().toString();
@@ -115,7 +115,7 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
         String getConfirmPassword = confirmPassword.getText().toString();
 
         // Pattern match for email id
-        Pattern p = Pattern.compile(Utils.regEx);
+        Pattern p = Pattern.compile(CommonUtil.regEx);
         Matcher m = p.matcher(getEmailId);
 
         // Check if all strings are null or not
@@ -138,11 +138,12 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
             new CustomToast().Show_Toast(getActivity(), view,
                     "Both password doesn't match.");
 
+        /*
             // Make sure user should check Terms and Conditions checkbox
         else if (!terms_conditions.isChecked())
             new CustomToast().Show_Toast(getActivity(), view,
                     "Please select Terms and Conditions.");
-
+*/
             // Else do signup or do your stuff
         else {
             Toast.makeText(getActivity(), "Do SignUp.", Toast.LENGTH_SHORT)
@@ -154,7 +155,9 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
 
                 }
             });
+            //
+            isValid = true;
         }
-
+        return isValid;
     }
 }

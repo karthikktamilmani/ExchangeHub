@@ -35,7 +35,6 @@ public class Login_Fragment extends Fragment implements OnClickListener {
     private static EditText emailid, password;
     private static Button loginButton;
     private static TextView forgotPassword, signUp;
-    private static CheckBox show_hide_password;
     private static LinearLayout loginLayout;
     private static Animation shakeAnimation;
     private static FragmentManager fragmentManager;
@@ -62,8 +61,6 @@ public class Login_Fragment extends Fragment implements OnClickListener {
         loginButton = (Button) view.findViewById(R.id.loginBtn);
         forgotPassword = (TextView) view.findViewById(R.id.forgot_password);
         signUp = (TextView) view.findViewById(R.id.createAccount);
-        show_hide_password = (CheckBox) view
-                .findViewById(R.id.show_hide_password);
         loginLayout = (LinearLayout) view.findViewById(R.id.login_layout);
 
         // Load ShakeAnimation
@@ -76,9 +73,8 @@ public class Login_Fragment extends Fragment implements OnClickListener {
             ColorStateList csl = ColorStateList.createFromXml(getResources(),
                     xrp);
 
-            forgotPassword.setTextColor(csl);
-            show_hide_password.setTextColor(csl);
-            signUp.setTextColor(csl);
+//            forgotPassword.setTextColor(csl);
+  //          signUp.setTextColor(csl);
         } catch (Exception e) {
         }
     }
@@ -90,38 +86,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
         signUp.setOnClickListener(this);
 
         // Set check listener over checkbox for showing and hiding password
-        show_hide_password
-                .setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-                    @Override
-                    public void onCheckedChanged(CompoundButton button,
-                                                 boolean isChecked) {
-
-                        // If it is checkec then show password else hide
-                        // password
-                        if (isChecked) {
-
-                            show_hide_password.setText(R.string.hide_pwd);// change
-                            // checkbox
-                            // text
-
-                            password.setInputType(InputType.TYPE_CLASS_TEXT);
-                            password.setTransformationMethod(HideReturnsTransformationMethod
-                                    .getInstance());// show password
-                        } else {
-                            show_hide_password.setText(R.string.show_pwd);// change
-                            // checkbox
-                            // text
-
-                            password.setInputType(InputType.TYPE_CLASS_TEXT
-                                    | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                            password.setTransformationMethod(PasswordTransformationMethod
-                                    .getInstance());// hide password
-
-                        }
-
-                    }
-                });
     }
 
     @Override

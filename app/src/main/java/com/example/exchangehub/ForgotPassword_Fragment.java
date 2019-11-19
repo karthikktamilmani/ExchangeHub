@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +23,7 @@ public class ForgotPassword_Fragment extends Fragment implements
 	private static View view;
 
 	private static EditText emailId;
-	private static TextView submit, back;
+	private static MaterialButton submit, back;
 
 	public ForgotPassword_Fragment() {
 
@@ -40,8 +42,8 @@ public class ForgotPassword_Fragment extends Fragment implements
 	// Initialize the views
 	private void initViews() {
 		emailId = (EditText) view.findViewById(R.id.registered_emailid);
-		submit = (TextView) view.findViewById(R.id.forgot_button);
-		back = (TextView) view.findViewById(R.id.backToLoginBtn);
+		submit = (MaterialButton) view.findViewById(R.id.forgot_button);
+		back = (MaterialButton) view.findViewById(R.id.backToLoginBtn);
 
 		// Setting text selector over textviews
 		XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
@@ -49,8 +51,6 @@ public class ForgotPassword_Fragment extends Fragment implements
 			ColorStateList csl = ColorStateList.createFromXml(getResources(),
 					xrp);
 
-			back.setTextColor(csl);
-			submit.setTextColor(csl);
 
 		} catch (Exception e) {
 		}

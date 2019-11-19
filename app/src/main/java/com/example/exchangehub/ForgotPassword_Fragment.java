@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -86,7 +85,7 @@ public class ForgotPassword_Fragment extends Fragment implements
 		String getEmailId = emailId.getText().toString();
 
 		// Pattern for email id validation
-		Pattern p = Pattern.compile(Utils.regEx);
+		Pattern p = Pattern.compile(CommonUtil.regEx);
 
 		// Match the pattern
 		Matcher m = p.matcher(getEmailId);

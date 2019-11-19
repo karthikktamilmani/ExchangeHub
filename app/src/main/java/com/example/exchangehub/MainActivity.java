@@ -2,8 +2,6 @@ package com.example.exchangehub;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.frameContainer, new Login_Fragment(),
-                            Utils.Login_Fragment).commit();
+                            CommonUtil.Login_Fragment).commit();
         }
 
         // On close icon click finish activity
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .beginTransaction()
                 .setCustomAnimations(R.anim.left_enter, R.anim.right_out)
                 .replace(R.id.frameContainer, new Login_Fragment(),
-                        Utils.Login_Fragment).commit();
+                        CommonUtil.Login_Fragment).commit();
     }
 
     @Override
@@ -61,9 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Find the tag of signup and forgot password fragment
         Fragment SignUp_Fragment = fragmentManager
-                .findFragmentByTag(Utils.SignUp_Fragment);
+                .findFragmentByTag(CommonUtil.SignUp_Fragment);
         Fragment ForgotPassword_Fragment = fragmentManager
-                .findFragmentByTag(Utils.ForgotPassword_Fragment);
+                .findFragmentByTag(CommonUtil.ForgotPassword_Fragment);
 
         // Check if both are null or not
         // If both are not null then replace login fragment else do backpressed
@@ -75,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             replaceLoginFragment();
         else
             super.onBackPressed();
+    }
+
+    public static FragmentManager getMainFragmentManager()
+    {
+        return fragmentManager;
     }
 }
 

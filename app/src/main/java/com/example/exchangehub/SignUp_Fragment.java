@@ -16,14 +16,12 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -90,7 +88,10 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
             case R.id.signUpBtn:
 
                 // Call checkValidation method
-                checkValidation();
+                if(checkValidation())
+                {
+                    CommonUtil.getInstance().showHomePageFragment();
+                }
                 break;
 
             case R.id.already_user:
@@ -103,7 +104,9 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
     }
 
     // Check Validation Method
-    private void checkValidation() {
+    private Boolean checkValidation() {
+        //
+        Boolean isValid = false;
 
         // Get all edittext texts
         String getFullName = fullName.getText().toString();
@@ -112,7 +115,7 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
         String getConfirmPassword = confirmPassword.getText().toString();
 
         // Pattern match for email id
-        Pattern p = Pattern.compile(Utils.regEx);
+        Pattern p = Pattern.compile(CommonUtil.regEx);
         Matcher m = p.matcher(getEmailId);
 
         // Check if all strings are null or not
@@ -152,7 +155,9 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
 
                 }
             });
+            //
+            isValid = true;
         }
-
+        return isValid;
     }
 }

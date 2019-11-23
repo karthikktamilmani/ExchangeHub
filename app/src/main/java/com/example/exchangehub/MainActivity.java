@@ -1,5 +1,6 @@
 package com.example.exchangehub;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -23,13 +24,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FrameLayout backgroundFrameLayout = (FrameLayout) findViewById(R.id.frameContainer);
         backgroundFrameLayout.setOnClickListener(this);
         fragmentManager = getSupportFragmentManager();
+        CommonUtil.getInstance().setAppContext(getApplicationContext());
 
         // If savedinstnacestate is null then replace login fragment
         if (savedInstanceState == null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.frameContainer, new Login_Fragment(),
-                            CommonUtil.Login_Fragment).commit();
+
+            if( SaveSharedPreference.getLoggedStatus(getApplicationContext()) == false) {
+                fragmentManager
+                        .beginTransaction()
+                        .replace(R.id.frameContainer, new Login_Fragment(),
+                                CommonUtil.Login_Fragment).commit();
+            }
+            else
+            {
+                CommonUtil.getInstance().showHomePageFragment();
+            }
         }
 
         // On close icon click finish activity
@@ -78,6 +87,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static FragmentManager getMainFragmentManager()
     {
         return fragmentManager;
+    }
+
+    public Context getMainApplicationContext()
+    {
+        return getApplicationContext();
     }
 }
 

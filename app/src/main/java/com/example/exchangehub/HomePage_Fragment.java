@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.exchangehub.adapters.HomePagePostAdapter;
 import com.google.android.material.chip.Chip;
@@ -62,7 +63,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                     if(event.getRawX() >= searchText.getRight() - searchText.getTotalPaddingRight())
                     {
                         //calls the search method
-                        //Toast.makeText(MainActivity.this, "eeeeeeeeeeeeeeeeee", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.class, "eeeeeeeeeeeeeeeeee", Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 }

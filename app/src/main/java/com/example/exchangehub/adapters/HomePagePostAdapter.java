@@ -1,24 +1,20 @@
 package com.example.exchangehub.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.example.exchangehub.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapter.PostViewHolder>{
+public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapter.PostViewHolder>  implements View.OnClickListener{
 
     ArrayList postList;
 
@@ -52,10 +48,17 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         //
         holder.textField.setText(postList.get(position).toString());
+        holder.materialCardView.setOnClickListener(this);
         //holder.imageView.setImageResource(R.drawable.computer_foreground);
         //
     }
 
+    @Override
+    public void onClick(View v) {
+        //Intent intent = new Intent(this, SaleActivity.class);
+
+        //startActivity(intent);
+    }
     @Override
     public int getItemCount() {
         return postList.size();

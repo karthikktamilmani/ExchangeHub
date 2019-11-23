@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:endIconMode="clear_text"
+            android:id="@+id/login_emailid_layout"
             >
 
             <EditText
@@ -54,6 +55,7 @@
             android:layout_marginTop="20dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:endIconMode="password_toggle"
+            android:id="@+id/login_password_layout"
             >
 
             <EditText

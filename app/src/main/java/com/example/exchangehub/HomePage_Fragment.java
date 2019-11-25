@@ -63,6 +63,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                     if(event.getRawX() >= searchText.getRight() - searchText.getTotalPaddingRight())
                     {
                         //calls the search method
+                        searchPost();
                         //Toast.makeText(MainActivity.class, "eeeeeeeeeeeeeeeeee", Toast.LENGTH_SHORT).show();
                         return true;
                     }

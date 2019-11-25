@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -93,5 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         return getApplicationContext();
     }
+
+
 }
 

@@ -84,7 +84,7 @@ public class CommonUtil {
         if(true)
         {
             // if true return the userID
-            return null;
+            return Boolean.TRUE;
         }
         return null;
     }

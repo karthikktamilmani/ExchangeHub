@@ -23,6 +23,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 public class Login_Fragment extends Fragment implements OnClickListener {
     private static View view;
 
@@ -32,6 +34,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
     private static LinearLayout loginLayout;
     private static Animation shakeAnimation;
     private static FragmentManager fragmentManager;
+    private static TextInputLayout emailIdLayout,passwordLayout;
 
     public Login_Fragment() {
 
@@ -56,21 +59,13 @@ public class Login_Fragment extends Fragment implements OnClickListener {
         forgotPassword = (TextView) view.findViewById(R.id.forgot_password);
         signUp = (TextView) view.findViewById(R.id.createAccount);
         loginLayout = (LinearLayout) view.findViewById(R.id.login_layout);
+        emailIdLayout = (TextInputLayout) view.findViewById(R.id.login_emailid_layout);
+        passwordLayout = (TextInputLayout) view.findViewById(R.id.login_password_layout);
 
         // Load ShakeAnimation
         shakeAnimation = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.shake);
 
-        // Setting text selector over textviews
-        XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
-        try {
-            ColorStateList csl = ColorStateList.createFromXml(getResources(),
-                    xrp);
-
-//            forgotPassword.setTextColor(csl);
-  //          signUp.setTextColor(csl);
-        } catch (Exception e) {
-        }
     }
 
     // Set Listeners
@@ -87,10 +82,21 @@ public class Login_Fragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loginBtn:
-               // if (checkValidation())
-                //{
-                    CommonUtil.getInstance().showHomePageFragment();
-                //}
+               if (checkValidation())
+               {
+                    String getEmailId = emailid.getText().toString();
+                    String getPassword = password.getText().toString();
+                    Object userId = CommonUtil.getInstance().loginToAccount(getEmailId,getPassword);
+                    if( userId != null ) {
+                        CommonUtil.getInstance().showHomePageFragment();
+                        SaveSharedPreference.setLoggedIn(CommonUtil.getInstance().getAppContext(), true, (String)userId);
+                    }
+                    else
+                    {
+                        //
+                        CommonUtil.getInstance().showErrorTextLayout(emailIdLayout,"Your Email Id and password combo is wrong");
+                    }
+               }
                 break;
 
             case R.id.forgot_password:
@@ -127,21 +133,34 @@ public class Login_Fragment extends Fragment implements OnClickListener {
         Pattern p = Pattern.compile(CommonUtil.regEx);
 
         Matcher m = p.matcher(getEmailId);
+        //
+        CommonUtil.getInstance().hideErrorTextLayout(emailIdLayout,TextInputLayout.END_ICON_CLEAR_TEXT);
+        CommonUtil.getInstance().hideErrorTextLayout(passwordLayout,TextInputLayout.END_ICON_PASSWORD_TOGGLE);
 
         // Check for both field is empty or not
         if (getEmailId.equals("") || getEmailId.length() == 0
                 || getPassword.equals("") || getPassword.length() == 0) {
             loginLayout.startAnimation(shakeAnimation);
-            new CustomToast().Show_Toast(getActivity(), view,
-                    "Enter both credentials.");
+            //new CustomToast().Show_Toast(getActivity(), view,
+              //      "Enter both credentials.");
+            if( getEmailId.equals("") || getEmailId.length() == 0 )
+            {
+                CommonUtil.getInstance().showErrorTextLayout(emailIdLayout,"Please enter emailId");
+            }
+            //
+            if( getPassword.equals("") || getPassword.length() == 0 )
+            {
+                CommonUtil.getInstance().showErrorTextLayout(passwordLayout,"Please enter password");
+            }
             isValid = false;
 
         }
         // Check if email id is valid or not
         else if (!m.find()) {
             isValid = false;
-            new CustomToast().Show_Toast(getActivity(), view,
-                    "Your Email Id is Invalid.");
+            CommonUtil.getInstance().showErrorTextLayout(emailIdLayout,"Your Email Id is Invalid");
+            //new CustomToast().Show_Toast(getActivity(), view,
+              //      "Your Email Id is Invalid.");
         }
             // Else do login and do your stuff
         else {

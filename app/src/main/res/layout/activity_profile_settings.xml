@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileSettings">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/NametextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="40dp"
+        android:text="Name" />
+
+    <EditText
+        android:id="@+id/NameEditText"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="23dp"
+        android:layout_toRightOf="@+id/NametextView"
+        android:text=" " />
+
+    <TextView
+        android:id="@+id/EmailtextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/NametextView"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="38dp"
+        android:text="Email" />
+
+    <EditText
+        android:id="@+id/EmailEditText"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/NameEditText"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="23dp"
+        android:layout_toRightOf="@+id/EmailtextView"
+        android:text=" " />
+
+    <TextView
+        android:id="@+id/PasswordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EmailtextView"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:text="Password" />
+
+    <TextView
+        android:id="@+id/PasswordTextLink"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@+id/PasswordTextView"
+        android:layout_below="@+id/EmailEditText"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="230dp"
+        android:textColor="#3636E9"
+        android:text="change" />
+
+
+    <TextView
+        android:id="@+id/HelpLink"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/PasswordTextLink"
+        android:textSize="10sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:textColor="#3636E9"
+        android:text="Any feedback or problems? Let us know! " />
+
+    <TextView
+        android:id="@+id/LogoutLink"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/HelpLink"
+        android:textSize="10sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="50dp"
+        android:clickable="true"
+        android:textColor="#3636E9"
+        android:text="Logout" />
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">AddPostModule</string>
+    <string name="product">Enter product title..</string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+    <string name="price">Price</string>
+    <string name="category">Category</string>
+    <string name="currency">CAD</string>
+    <string name="post">Post</string>
+    <string-array name="categoryList">
+        <item>Books</item>
+        <item>Accessories</item>
+        <item>Clothes</item>
+    </string-array>
+</resources>

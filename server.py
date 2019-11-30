@@ -6,6 +6,7 @@ from flask import flash,request
 from flaskext.mysql import MySQL
 from PIL import Image
 import base64
+import datetime
 #from werkzeug import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -145,19 +146,100 @@ def retrievePassword():
 @app.route('/uploadImage',methods=['POST'])
 def uploadImage():
  print("gamma")
- image_name = request.form['name']
+ #image_name = request.form['name']
  image_data = request.form['image']
  description = request.form['desc']
- #print(image_data)
+ UserID = request.form["UserID"]
+ print(image_data)
  print(description)
+ print(UserID)
+ lookingFor = "LinuxBox;GameConsole"
+
  image_data = base64.b64decode(image_data)
- filename =  'static/Images/'+image_name + ".jpeg"
+ filename =  'static/Images/'+UserID + ".jpeg"
+ filename = str(filename)
+ description = str(description)
+ UserID = str(UserID)
+ lookingFor = str(lookingFor)
+ print(filename)
+ if description != "Empty String":
+     sqlStatement = 'UPDATE USER_DETAILS SET description=%s, USER_PROFILE_IMAGE=%s, looking_for=%s where user_id=%s'
+     data = (description,filename,lookingFor,UserID)
+ if description == "Empty String":
+     sqlStatement = 'UPDATE USER_DETAILS SET USER_PROFILE_IMAGE=%s,looking_for=%s where user_id=%s'
+     data= (filename,lookingFor,UserID)
+
+ conn = mysql.connect()
+ cursor = conn.cursor()
+ print(sqlStatement)
+ print(data)
+ state = cursor.execute(sqlStatement, data)
+ conn.commit()
+ if state:
+     print("updation successful")
+
+
+
  with open(filename,'wb') as f:
   f.write(image_data)
 
  resp = "talking..."
  return resp
 
+@app.route('/populateData',methods=['POST'])
+def populateData():
+ try:
+    UserID = request.form["userID"]
+    print(UserID)
+    sqlStatement = "Select * from USER_DETAILS WHERE user_id=%s"
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute(sqlStatement,UserID)
+    rows = cursor.fetchall()
+    for row in rows:
+        description = row[1]
+        USER_PROFILE_IMAGE = row[4]
+        print(description)
+        print(USER_PROFILE_IMAGE)
+    print(description)
+    print(USER_PROFILE_IMAGE)
+    with open(USER_PROFILE_IMAGE, "rb") as img_file:
+        my_image = str(img_file.read())
+        # my_string = str(my_string)
+    print(my_image)
+    jsonData = jsonify(image=USER_PROFILE_IMAGE,desc=description)
+    return jsonData
+ except Exception as e:
+    print(e)
+#Add Post Fuctionality Starts
+@app.route('/AddPostModule',methods=['POST'])
+def addPostModule():
+    try:
+      UserId = request.form["userID"]
+      Product = request.form["Product"]
+      Description = request.form["Description"]
+      Price = request.form["Price"]
+      Category = request.form["Category"]
+      image_data = request.form['image']
+      image_data = base64.b64decode(image_data)
+      #Product ID GENERATION
+      ImageName = str(datetime.datetime.now().date()) + '_' + str(datetime.datetime.now().time()).replace(':', '.')
+      filename = 'static/ProductImages/' + ImageName + ".jpeg"
+      sql = "INSERT INTO PRODUCT(prod_name,Prod_Description,Price,user_id,Image,Category) VALUES(%s,%s,%s,%s,%s,%s)"
+      data = (Product,Description,Price,UserId,ImageName,Category)
+      conn = mysql.connect()
+      cursor = conn.cursor()
+      cursor.execute(sql, data)
+      conn.commit()
+      with open(filename, 'wb') as f:
+          f.write(image_data)
+      print(Category)
+     #Database Entry
+
+      return jsonify(response = "Product Added")
+
+    except Exception as e:
+      print(e)
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=80)

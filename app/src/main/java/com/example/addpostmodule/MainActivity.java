@@ -1,3 +1,6 @@
+
+//Source References: https://demonuts.com/pick-image-gallery-camera-android/ : used this source for picking Image from the source(Camera or Gallery)
+
 package com.example.addpostmodule;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,59 +43,59 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-//https://demonuts.com/pick-image-gallery-camera-android/
-        private Button btn;
-        private ImageView imageview;
-        private static final String IMAGE_DIRECTORY = "/demonuts";
-        private int GALLERY = 1, CAMERA = 2;
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-            requestMultiplePermissions();
-            btn = (Button) findViewById(R.id.btn);
-            imageview = (ImageView) findViewById(R.id.iv);
 
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showPictureDialog();
-                }
-            });
-        }
-        private void showPictureDialog(){
-            AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
-            pictureDialog.setTitle("Select Action");
-            String[] pictureDialogItems = {
-                    "Select photo from gallery",
-                    "Capture photo from camera" };
-            pictureDialog.setItems(pictureDialogItems,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case 0:
-                                    choosePhotoFromGallary();
-                                    break;
-                                case 1:
-                                    takePhotoFromCamera();
-                                    break;
-                            }
+    private Button SelectPicturebutton;
+    private ImageView imageview;
+
+    private int GALLERYOPTION = 1, CAMERAOPTION = 2;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        SelectPicturebutton = (Button) findViewById(R.id.btn);
+        imageview = (ImageView) findViewById(R.id.iv);
+
+        SelectPicturebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImageFromSource();
+            }
+        });
+    }
+    private void selectImageFromSource(){
+        AlertDialog.Builder DialogBuilder = new AlertDialog.Builder(this);
+        DialogBuilder.setTitle("Select Action");
+        String[] DialogBuilderItems = {
+                "Gallery",
+                "Camera" };
+        DialogBuilder.setItems(DialogBuilderItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                Gallery();
+                                break;
+                            case 1:
+                                Camera();
+                                break;
                         }
-                    });
-            pictureDialog.show();
-        }
-    public void choosePhotoFromGallary() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                    }
+                });
+        DialogBuilder.show();
+    }
+    public void Gallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-        startActivityForResult(galleryIntent, GALLERY);
+        startActivityForResult(intent, GALLERYOPTION);
     }
 
-    private void takePhotoFromCamera() {
+    private void Camera() {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
-        startActivityForResult(intent, CAMERA);
+        startActivityForResult(intent, CAMERAOPTION);
     }
 
     @Override
@@ -102,20 +105,19 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
-        if (requestCode == GALLERY) {
+        if (requestCode == GALLERYOPTION) {
             if (data != null) {
                 Uri contentURI = data.getData();
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    String path = saveImage(bitmap);
-                    Toast.makeText(MainActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
-                    ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytestream);
-                    byte[] byteArray = bytestream.toByteArray();
+                    Bitmap bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+
+
+                    ByteArrayOutputStream bytestreamFormatData = new ByteArrayOutputStream();
+                    bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, bytestreamFormatData);
+                    byte[] byteArrayData = bytestreamFormatData.toByteArray();
                     Intent intent = new Intent(this, AddPost.class);
-                    intent.putExtra("image",byteArray);
+                    intent.putExtra("image",byteArrayData);
                     startActivity(intent);
-                    //imageview.setImageBitmap(bitmap);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -123,85 +125,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-        } else if (requestCode == CAMERA) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            //imageview.setImageBitmap(bitmap);
-            //saveImage(thumbnail);
+        } else if (requestCode == CAMERAOPTION) {
+            Bitmap bitmapImage = (Bitmap) data.getExtras().get("data");
+
             ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytestream);
-            byte[] byteArray = bytestream.toByteArray();
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, bytestream);
+            byte[] byteArrayData = bytestream.toByteArray();
             Intent intent = new Intent(this, AddPost.class);
-            intent.putExtra("image",byteArray);
+            intent.putExtra("image",byteArrayData);
             startActivity(intent);
-            Toast.makeText(MainActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
+
         }
     }
 
-    public String saveImage(Bitmap myBitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-        // have the object build the directory structure, if needed.
-        if (!wallpaperDirectory.exists()) {
-            wallpaperDirectory.mkdirs();
-        }
-
-        try {
-            File f = new File(wallpaperDirectory, Calendar.getInstance()
-                    .getTimeInMillis() + ".jpg");
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(this,
-                    new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
-            fo.close();
-            Log.d("TAG", "File Saved::---&gt;" + f.getAbsolutePath());
-
-            return f.getAbsolutePath();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return "";
-    }
-
-    private void  requestMultiplePermissions(){
-        Dexter.withActivity(this)
-                .withPermissions(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        // check if all permissions are granted
-                        if (report.areAllPermissionsGranted()) {
-                            Toast.makeText(getApplicationContext(), "All permissions are granted by user!", Toast.LENGTH_SHORT).show();
-                        }
-
-                        // check for permanent denial of any permission
-                        if (report.isAnyPermissionPermanentlyDenied()) {
-                            // show alert dialog navigating to Settings
-                            //openSettingsDialog();
-                        }
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
 
 
-                }).
-                withErrorListener(new PermissionRequestErrorListener() {
-                    @Override
-                    public void onError(DexterError error) {
-                        Toast.makeText(getApplicationContext(), "Some Error! ", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .onSameThread()
-                .check();
-    }
+
 
 }

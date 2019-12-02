@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,10 +25,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SignUp_Fragment extends Fragment implements OnClickListener {
     private static View view;
@@ -36,7 +42,9 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
     private static Button signUpButton;
     private static Animation shakeAnimation;
     private static LinearLayout signupLayout;
-    private FirebaseAuth firebaseAuth;
+    private final int IMG_REQUEST = 1;
+    private String signUpURL;
+    //private String signUpURL = "http://030cc8c3.ngrok.io/signUp";
     Context thisContext;
     public SignUp_Fragment() {
 
@@ -63,7 +71,7 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
         signupLayout = (LinearLayout) view.findViewById(R.id.signup_layout);
         shakeAnimation = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.shake);
-        firebaseAuth = FirebaseAuth.getInstance();
+        signUpURL = getResources().getString(R.string.url)+"/SignUp";
 
         // Setting text selector over textviews
         XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
@@ -71,7 +79,7 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
             ColorStateList csl = ColorStateList.createFromXml(getResources(),
                     xrp);
 
-           // login.setTextColor(csl);
+            // login.setTextColor(csl);
         } catch (Exception e) {
         }
     }
@@ -90,14 +98,49 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
                 // Call checkValidation method
                 if(checkValidation())
                 {
-                    CommonUtil.getInstance().showHomePageFragment();
+                    StringRequest jsonObjRequest = new StringRequest(Request.Method.POST, signUpURL,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        System.out.println("Response from server");
+                                        JSONObject jsonObject = new JSONObject(response);
+                                        String Response = jsonObject.getString("response");
+                                        System.out.println(Response);
+                                        //Toast.makeText(getContext(),Response,Toast.LENGTH_SHORT).show();
+                                    }
+                                    catch (JSONException e){
+                                        e.printStackTrace();
+                                    }
+
+
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println(error.getMessage());
+
+                        }
+                    })
+                    {
+                        protected Map<String,String> getParams() throws AuthFailureError {
+                            Map<String, String> params = new HashMap<>();
+                            params.put("name",fullName.getText().toString().trim());
+                            params.put("email",emailId.getText().toString().trim());
+                            params.put("pass",password.getText().toString().trim());
+                            return params;
+                        }
+                    };
+                    MySingleton.getInstance(getActivity()).addToRequestQueue(jsonObjRequest);
+                    CommonUtil.getInstance().showLoginFragment();
+
                 }
                 break;
 
             case R.id.already_user:
 
                 // Replace login fragment
-                new MainActivity().replaceLoginFragment();
+                new MainActivityStart().replaceLoginFragment();
                 break;
         }
 
@@ -148,13 +191,14 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
         else {
             Toast.makeText(getActivity(), "Do SignUp.", Toast.LENGTH_SHORT)
                     .show();
-            firebaseAuth.createUserWithEmailAndPassword(getEmailId,getPassword).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+           /* firebaseAuth.createUserWithEmailAndPassword(getEmailId,getPassword).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     Toast.makeText(getActivity(),"Register Succesfully",Toast.LENGTH_SHORT).show();
 
+
                 }
-            });
+            });*/
             //
             isValid = true;
         }

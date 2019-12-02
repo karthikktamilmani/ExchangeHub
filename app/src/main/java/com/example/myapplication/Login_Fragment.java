@@ -1,12 +1,10 @@
-package com.example.exchangehub;
+package com.example.myapplication;
 
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-import android.content.res.ColorStateList;
-import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

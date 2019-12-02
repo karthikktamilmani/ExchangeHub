@@ -1,11 +1,9 @@
-package com.example.exchangehub;
+package com.example.myapplication;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

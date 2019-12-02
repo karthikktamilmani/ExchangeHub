@@ -1,4 +1,4 @@
-package com.example.exchangehub.adapters;
+package com.example.myapplication.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +14,8 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.exchangehub.CommonUtil;
-import com.example.exchangehub.R;
+import com.example.myapplication.CommonUtil;
+import com.example.myapplication.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;

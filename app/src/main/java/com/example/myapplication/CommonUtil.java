@@ -1,4 +1,4 @@
-package com.example.exchangehub;
+package com.example.myapplication;
 
 import android.content.Context;
 import android.location.Address;
@@ -9,7 +9,6 @@ import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputLayout;

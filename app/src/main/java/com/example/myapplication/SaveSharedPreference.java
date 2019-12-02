@@ -1,4 +1,4 @@
-package com.example.exchangehub;
+package com.example.myapplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;

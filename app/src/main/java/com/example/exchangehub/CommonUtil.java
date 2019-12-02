@@ -2,12 +2,16 @@ package com.example.exchangehub;
 
 import android.content.Context;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.HashMap;
 
 public class CommonUtil {
     //Email Validation pattern
@@ -25,6 +29,7 @@ public class CommonUtil {
     private static FragmentManager fragmentManager;
     private static CommonUtil object = null;
     private Context appContext = null;
+    private static ActionBar mainActionBar = null;
     //
     private CommonUtil()
     {
@@ -140,6 +145,8 @@ public class CommonUtil {
                         CommonUtil.VIEW_PRODUCT_FRAGMENT)
                 .addToBackStack(null)
                 .commit();
+        //
+
 
         // to roll-back to the previous transaction -> addToBackStack(null)
     }
@@ -147,6 +154,24 @@ public class CommonUtil {
     public void showPreviousFragment()
     {
         fragmentManager.popBackStackImmediate();
+    }
+
+    //
+    public void setTextFieldValuesFromObject(TextView textView, HashMap objectMap, String valueShown)
+    {
+        textView.setText(objectMap.get(valueShown).toString());
+    }
+
+    //
+    public void setMainActionBar(ActionBar actionBar)
+    {
+        this.mainActionBar = actionBar;
+    }
+
+    //
+    public ActionBar getMainActionBar()
+    {
+        return mainActionBar;
     }
 
 }

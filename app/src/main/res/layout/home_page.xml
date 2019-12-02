@@ -62,7 +62,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipIcon="@mipmap/computer_round"
+                    app:chipIcon="@drawable/electronics"
                     android:id="@+id/electronics_chip"
                     app:chipIconVisible="true"
                     android:text="Electronics"/>
@@ -71,7 +71,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipIcon="@mipmap/computer_round"
+                    app:chipIcon="@drawable/computer"
                     android:id="@+id/computer_chip"
                     app:chipIconVisible="true"
                     android:text="Computers"/>
@@ -80,7 +80,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:chipIcon="@mipmap/computer_round"
+                    app:chipIcon="@drawable/mobile"
                     android:id="@+id/mobile_chip"
                     app:chipIconVisible="true"
                     android:text="Mobiles"/>
@@ -90,15 +90,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/furniture_chip"
-                    app:chipIcon="@mipmap/computer_round"
+                    app:chipIcon="@drawable/furniture"
                     app:chipIconVisible="true"
                     android:text="Furniture"/>
+
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/accessories_chip"
-                    app:chipIcon="@mipmap/computer_round"
+                    app:chipIcon="@drawable/accessory"
                     app:chipIconVisible="true"
                     android:text="Accessories"/>
 
@@ -107,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/beauty_chip"
-                    app:chipIcon="@mipmap/computer_round"
+                    app:chipIcon="@drawable/beauty"
                     app:chipIconVisible="true"
                     android:text="Beauty"/>
 

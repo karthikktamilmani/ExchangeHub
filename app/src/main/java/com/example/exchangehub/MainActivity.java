@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         backgroundFrameLayout.setOnClickListener(this);
         fragmentManager = getSupportFragmentManager();
         CommonUtil.getInstance().setAppContext(getApplicationContext());
-
+        CommonUtil.getInstance().setMainActionBar(getSupportActionBar());
         // If savedinstnacestate is null then replace login fragment
         if (savedInstanceState == null) {
 
@@ -94,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public Context getMainApplicationContext()
     {
         return getApplicationContext();
+    }
+
+    public ActionBar getMainActionBar() {
+        return getSupportActionBar();
     }
 
 

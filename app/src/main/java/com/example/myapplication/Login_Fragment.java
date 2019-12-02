@@ -102,6 +102,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
                     final String getEmailId = emailid.getText().toString();
                     final String getPassword = password.getText().toString();
                     // String userId = null;
+                    /*
                     StringRequest jsonObjRequest = new StringRequest(Request.Method.POST, LoginURL,
                             new Response.Listener<String>() {
                                 @Override
@@ -150,7 +151,23 @@ public class Login_Fragment extends Fragment implements OnClickListener {
                         }
                     };
                     MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjRequest);
-
+                    */
+                    /**
+                     *
+                     */
+                    Object userId = "1234";
+                    if( userId != null ) {
+                        Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                        startActivity(i);
+                        SaveSharedPreference.setLoggedIn(CommonUtil.getInstance().getAppContext(), true, (String)userId);
+                    }
+                    else
+                    {
+                        //
+                        // CommonUtil.getInstance().showErrorTextLayout(emailIdLayout,"Your Email Id and password combo is wrong");
+                        new CustomToast().Show_Toast(getActivity(), view,
+                                "Your Email Id or password is Invalid.");
+                    }
                 }
                 break;
 

@@ -15,19 +15,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.myapplication.MySingleton;
 import com.example.myapplication.ProfileSettings;
 import com.example.myapplication.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,13 +85,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener
 
         switch (v.getId())
         {
-            case R.id.ProfileimageView:
+            /*case R.id.ProfileimageView:
                 selectImage();
                 break;
 
             case R.id.saveChanges:
                 updateChanges();
-                break;
+                break;*/
 
 
         }

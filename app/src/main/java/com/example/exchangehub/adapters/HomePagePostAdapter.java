@@ -72,6 +72,7 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
                 //
             }
         });
+        //
         CommonUtil.getInstance().setTextFieldValuesFromObject(holder.productTitle,objectValueMap,"PRODUCT_TITLE");
         CommonUtil.getInstance().setTextFieldValuesFromObject(holder.productPrice,objectValueMap,"PRODUCT_PRICE");
         holder.productDescription.setText(objectValueMap.get("PRODUCT_DESCRIPTION").toString());

@@ -1,13 +1,21 @@
-package com.example.exchangehub;
+package com.example.myapplication;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 public class CommonUtil {
     //Email Validation pattern
@@ -25,6 +33,7 @@ public class CommonUtil {
     private static FragmentManager fragmentManager;
     private static CommonUtil object = null;
     private Context appContext = null;
+    private static ActionBar mainActionBar = null;
     //
     private CommonUtil()
     {
@@ -51,7 +60,7 @@ public class CommonUtil {
                 .beginTransaction()
                 .setCustomAnimations(R.anim.left_enter, R.anim.right_out)
                 .replace(R.id.frameContainer, new HomePage_Fragment(),
-                        CommonUtil.HOMEPAGE_FRAGMENT).commit();
+                        CommonUtil.HOMEPAGE_FRAGMENT).commitAllowingStateLoss();
     }
 
     void showErrorTextLayout(TextInputLayout elementObj, String errorMsg)
@@ -84,7 +93,7 @@ public class CommonUtil {
         if(true)
         {
             // if true return the userID
-            return Boolean.TRUE;
+            return "1234";
         }
         return null;
     }
@@ -140,6 +149,8 @@ public class CommonUtil {
                         CommonUtil.VIEW_PRODUCT_FRAGMENT)
                 .addToBackStack(null)
                 .commit();
+        //
+
 
         // to roll-back to the previous transaction -> addToBackStack(null)
     }
@@ -147,6 +158,38 @@ public class CommonUtil {
     public void showPreviousFragment()
     {
         fragmentManager.popBackStackImmediate();
+    }
+
+    //
+    public void setTextFieldValuesFromObject(TextView textView, HashMap objectMap, String valueShown)
+    {
+        textView.setText(objectMap.get(valueShown).toString());
+    }
+
+    //
+    public void setMainActionBar(ActionBar actionBar)
+    {
+        this.mainActionBar = actionBar;
+    }
+
+    //
+    public ActionBar getMainActionBar()
+    {
+        return mainActionBar;
+    }
+
+    //
+    public String getAddressFromLatLng( LatLng latLng) {
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(appContext, Locale.getDefault());
+        try {
+            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            return addresses.get(0).getAddressLine(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "errorrrrr";
+        }
     }
 
 }

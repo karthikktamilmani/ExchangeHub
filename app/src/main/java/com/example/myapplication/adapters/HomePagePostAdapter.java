@@ -1,4 +1,4 @@
-package com.example.exchangehub.adapters;
+package com.example.myapplication.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +14,12 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.exchangehub.CommonUtil;
-import com.example.exchangehub.R;
+import com.example.myapplication.CommonUtil;
+import com.example.myapplication.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapter.PostViewHolder>{
 
@@ -31,15 +32,17 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
         MaterialCardView materialCardView;
-        TextView textField;
-        ImageView imageView;
+        TextView productTitle, productPrice, productDescription;
+        ImageView productImage;
         ToggleButton buttonFavorite;
         PostViewHolder(View itemView) {
             super(itemView);
             materialCardView = (MaterialCardView) itemView.findViewById(R.id.home_materialcard);
-            textField = itemView.findViewById(R.id.cardText);
-            imageView = itemView.findViewById(R.id.cardImage);
+            productTitle = itemView.findViewById(R.id.cardText);
+            productImage = itemView.findViewById(R.id.cardImage);
             buttonFavorite = itemView.findViewById(R.id.button_favorite);
+            productPrice = itemView.findViewById(R.id.cardPrice);
+            productDescription = itemView.findViewById(R.id.cardDescription);
             //
         }
     }
@@ -59,7 +62,8 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
         //
         //TODO: the arrayList should be ArrayList<HashMap> so that the values are stored in the hashmap and all required values are obtained from that
         //
-        holder.textField.setText(postList.get(position).toString());
+        HashMap objectValueMap = (HashMap) postList.get(position);
+        //
         holder.materialCardView.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v) {
@@ -67,8 +71,12 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
                 CommonUtil.getInstance().showProductFragment(postList.get(position));
                 //
             }
-
         });
+        //
+        CommonUtil.getInstance().setTextFieldValuesFromObject(holder.productTitle,objectValueMap,"PRODUCT_TITLE");
+        CommonUtil.getInstance().setTextFieldValuesFromObject(holder.productPrice,objectValueMap,"PRODUCT_PRICE");
+        holder.productDescription.setText(objectValueMap.get("PRODUCT_DESCRIPTION").toString());
+        holder.productImage.setImageResource((int)objectValueMap.get("PRODUCT_IMAGE"));
         //holder.imageView.setImageResource(R.drawable.computer_foreground);
         final ScaleAnimation scaleAnimation;
         BounceInterpolator bounceInterpolator;

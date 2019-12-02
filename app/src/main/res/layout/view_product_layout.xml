@@ -6,12 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ViewFlipper
+    <!--            <ViewFlipper-->
+    <!--                android:id="@+id/flipper"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_centerHorizontal="true"/>-->
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:paddingStart="75dp"
         android:id="@+id/flipper"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_centerHorizontal="true"/>
-
+        android:src="@mipmap/default_no_image"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +44,7 @@
             <TextView
                 android:id="@+id/prodtitle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:text="Title of the product"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -55,13 +61,13 @@
             <TextView
                 android:id="@+id/prodPrice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_gravity="right"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:text="Price"
-                android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -72,21 +78,31 @@
             android:text="Description of the product"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:textStyle="bold"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
             />
 
-        <TextView
-            android:id="@+id/prodPlace"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Place"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            />
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location_on_black_24dp" />
+            <TextView
+                android:id="@+id/prodPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Place"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:textColor="#3498db"
+                android:textSize="15sp"
+                />
+        </LinearLayout>
 
     </LinearLayout>
     <LinearLayout
@@ -103,7 +119,7 @@
             android:layout_weight="0.48"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Button"
-            android:text="Chat"/>
+            android:text="Connect"/>
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"

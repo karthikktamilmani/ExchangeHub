@@ -1,6 +1,8 @@
 package com.example.exchangehub;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -9,9 +11,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 public class CommonUtil {
     //Email Validation pattern
@@ -56,7 +61,7 @@ public class CommonUtil {
                 .beginTransaction()
                 .setCustomAnimations(R.anim.left_enter, R.anim.right_out)
                 .replace(R.id.frameContainer, new HomePage_Fragment(),
-                        CommonUtil.HOMEPAGE_FRAGMENT).commit();
+                        CommonUtil.HOMEPAGE_FRAGMENT).commitAllowingStateLoss();
     }
 
     void showErrorTextLayout(TextInputLayout elementObj, String errorMsg)
@@ -89,7 +94,7 @@ public class CommonUtil {
         if(true)
         {
             // if true return the userID
-            return Boolean.TRUE;
+            return "1234";
         }
         return null;
     }
@@ -172,6 +177,20 @@ public class CommonUtil {
     public ActionBar getMainActionBar()
     {
         return mainActionBar;
+    }
+
+    //
+    public String getAddressFromLatLng( LatLng latLng) {
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(appContext, Locale.getDefault());
+        try {
+            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            return addresses.get(0).getAddressLine(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "errorrrrr";
+        }
     }
 
 }

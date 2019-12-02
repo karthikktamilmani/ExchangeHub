@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
 
@@ -20,7 +23,8 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
 
     private static View view;
     private ViewFlipper vf;
-    private TextView productTitle, productPrice, productDescription;
+    private TextView productTitle, productPrice, productDescription, productLocation;
+    private ImageView prdtImg;
     private HashMap objectValueMap;
 
     public ViewProduct_Fragment(Object valuesMap) {
@@ -38,7 +42,7 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.view_product_layout, container, false);
-        vf = view.findViewById(R.id.flipper);
+        //vf = view.findViewById(R.id.flipper);
         //
         CommonUtil.getInstance().getMainActionBar().setDisplayHomeAsUpEnabled(true);
         //CommonUtil.getInstance().getMainActionBar().setHasOptionsMenu(true);
@@ -47,14 +51,19 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
         productTitle = view.findViewById(R.id.prodtitle);
         productPrice = view.findViewById(R.id.prodPrice);
         productDescription = view.findViewById(R.id.prodDescription);
+        productLocation = view.findViewById(R.id.prodPlace);
+        prdtImg = view.findViewById(R.id.flipper);
         //
         //
         CommonUtil.getInstance().setTextFieldValuesFromObject(productTitle,objectValueMap,"PRODUCT_TITLE");
         CommonUtil.getInstance().setTextFieldValuesFromObject(productPrice,objectValueMap,"PRODUCT_PRICE");
         CommonUtil.getInstance().setTextFieldValuesFromObject(productDescription,objectValueMap,"PRODUCT_DESCRIPTION");
         //
+        productLocation.setText( "Pick From: " + CommonUtil.getInstance().getAddressFromLatLng((LatLng) objectValueMap.get("PRODUCT_LOCATION")));
+        prdtImg.setImageResource((int)objectValueMap.get("PRODUCT_IMAGE"));
+        //
         //int images = (int)objectValueMap.get("PRODUCT_IMAGE");
-        CommonUtil.getInstance().flipper((int)objectValueMap.get("PRODUCT_IMAGE"),vf);
+        //CommonUtil.getInstance().flipper((int)objectValueMap.get("PRODUCT_IMAGE"),vf);
         //holder.productImage.setImageResource((int)objectValueMap.get("PRODUCT_IMAGE"));
         /**
          *

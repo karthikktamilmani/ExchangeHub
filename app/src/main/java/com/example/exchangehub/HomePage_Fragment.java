@@ -66,7 +66,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
         postLists = new ArrayList();
         HashMap prod1 = new HashMap();
         prod1.put("PRODUCT_TITLE","iPhone XS");
-        prod1.put("PRODUCT_PRICE","300");
+        prod1.put("PRODUCT_PRICE","CA$300");
         prod1.put("PRODUCT_DESCRIPTION","for sale, get it for selfnlsd skdjfnkjsdn ksjfnklsd slkdnflksd");
         prod1.put("PRODUCT_IMAGE",R.drawable.xs_image);
         prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.593390));
@@ -74,7 +74,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
         postLists.add(prod1);
         prod1 = new HashMap();
         prod1.put("PRODUCT_TITLE","iPhone XR");
-        prod1.put("PRODUCT_PRICE","400");
+        prod1.put("PRODUCT_PRICE","CA$400");
         prod1.put("PRODUCT_DESCRIPTION","for sale, get it for selfnlsd skdjfnkjsdn ksjfnklsd slkdnflksd");
         prod1.put("PRODUCT_IMAGE",R.drawable.xr_image);
         prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.593390));
@@ -82,7 +82,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
         postLists.add(prod1);
         prod1 = new HashMap();
         prod1.put("PRODUCT_TITLE","iPhone X");
-        prod1.put("PRODUCT_PRICE","100");
+        prod1.put("PRODUCT_PRICE","CA$100");
         prod1.put("PRODUCT_DESCRIPTION","for sale, get it for selfnlsd skdjfnkjsdn ksjfnklsd slkdnflksd");
         prod1.put("PRODUCT_IMAGE",R.drawable.x_image);
         prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.593390));

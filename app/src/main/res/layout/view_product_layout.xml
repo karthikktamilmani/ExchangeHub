@@ -6,11 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ViewFlipper
+<!--    <ViewFlipper-->
+<!--        android:id="@+id/flipper"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="250dp"-->
+<!--        android:layout_centerHorizontal="true"/>-->
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:paddingStart="75dp"
         android:id="@+id/flipper"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_centerHorizontal="true"/>
+        android:src="@mipmap/default_no_image"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +28,7 @@
         android:layout_marginEnd="8dp"
         >
         <TextView
-            android:id="@+id/owner"
+            android:id="@+id/prodOwner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Owner"
@@ -36,9 +43,9 @@
             android:orientation="horizontal"
             >
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/prodtitle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:text="Title of the product"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -53,20 +60,20 @@
                 />
 
             <TextView
-                android:id="@+id/Price"
+                android:id="@+id/prodPrice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_gravity="right"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:text="Price"
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimary"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/prodDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description of the product"
@@ -77,16 +84,27 @@
             android:textSize="15sp"
             />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location_on_black_24dp" />
         <TextView
-            android:id="@+id/Place"
+            android:id="@+id/prodPlace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Place"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:textStyle="bold"
+            android:textColor="#3498db"
             android:textSize="15sp"
             />
+    </LinearLayout>
 
     </LinearLayout>
 
@@ -94,29 +112,27 @@
         android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
+        android:layout_alignParentBottom="true">
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="0.48"
-            android:text="Chat" />
-
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button"
+            android:text="Connect"/>
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="0.04" />
-
+            android:layout_weight="0.04"
+            />
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="0.48"
-            android:text="Trade" />
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button"
+            android:text="Trade"/>
     </LinearLayout>
 </RelativeLayout>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/ProductImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"/>
+    <EditText
+        android:id="@+id/productTitle"
+        android:layout_below="@+id/ProductImage"
+        android:layout_centerHorizontal="true"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="Give Title..."/>
+
+    <TextView
+        android:id="@+id/DescriptionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/productTitle"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:text="Description"/>
+
+    <EditText
+        android:id="@+id/descriptioneditText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/productTitle"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/DescriptionLabel"/>
+
+
+    <TextView
+        android:id="@+id/locationlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        android:layout_below="@+id/descriptioneditText"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"/>
+
+   <!-- <ImageView
+        android:id="@+id/mapicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/locationlabel"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="-18dp"
+        android:layout_toRightOf="@+id/locationlabel"
+        android:src="@drawable/ic_pick" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/locationlabel"
+        android:text="Halifax"
+        android:layout_marginTop="-18dp"
+        android:layout_toRightOf="@+id/mapicon"
+        android:layout_marginLeft="25dp"/> -->
+    <androidx.cardview.widget.CardView
+
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/locationlabel"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:minHeight="80dp"
+                android:id="@+id/rlAddress"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    android:text=""
+                    android:visibility="gone"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/tvEmpty"
+                    android:text="Tap pick location to get your address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_below="@+id/rlAddress"
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="#E1E1E1"
+                />
+
+            <RelativeLayout
+                android:id="@+id/rlPickLocation"
+                android:layout_below="@id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/items_inbetween"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/ic_pick"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/textView"
+                        android:textSize="18dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/items_inbetween"
+                        android:text="PICK LOCATION"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/Price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:layout_marginTop="22dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/card_view"/>
+    <EditText
+        android:id="@+id/cost"
+        android:layout_width="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/Price"
+        android:layout_marginLeft="65dp"
+        android:inputType="numberDecimal"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card_view"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CAD"
+        android:layout_toRightOf="@+id/cost"
+        android:layout_below="@+id/card_view"
+        android:layout_marginTop="19dp"/>
+    <TextView
+        android:id="@+id/Free"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Price"
+        android:layout_marginTop="15dp"
+
+        android:layout_marginLeft="15dp"
+        android:text="Free"/>
+    <Switch
+        android:id="@+id/FreeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Price"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="65dp"
+        android:layout_toRightOf="@+id/Free"/>
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Free"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:text="Category"/>
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:spinnerMode="dropdown"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="35dp"
+        android:layout_below="@+id/Free"
+        android:layout_toRightOf="@+id/category"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/spinner"
+        android:text="POST"/>
+    </RelativeLayout>
+</ScrollView>

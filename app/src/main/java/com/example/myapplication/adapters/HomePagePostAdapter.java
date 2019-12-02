@@ -1,5 +1,6 @@
 package com.example.myapplication.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,18 @@ import android.view.animation.ScaleAnimation;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.CommonUtil;
+import com.example.myapplication.ProductPage;
 import com.example.myapplication.R;
+import com.example.myapplication.ViewProduct_Fragment;
+import com.example.myapplication.ui.home.HomeFragment;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -43,7 +49,7 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
             buttonFavorite = itemView.findViewById(R.id.button_favorite);
             productPrice = itemView.findViewById(R.id.cardPrice);
             productDescription = itemView.findViewById(R.id.cardDescription);
-            //
+
         }
     }
 
@@ -63,14 +69,20 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
         //TODO: the arrayList should be ArrayList<HashMap> so that the values are stored in the hashmap and all required values are obtained from that
         //
         HashMap objectValueMap = (HashMap) postList.get(position);
-        //
         holder.materialCardView.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v) {
                 //
-                CommonUtil.getInstance().showProductFragment(postList.get(position));
+                //CommonUtil.getInstance().showProductFragment(postList.get(position));
                 //
+                //load ViewProduct_Fragment
+                FragmentTransaction transaction = HomeFragment.getMainFragmentManager().beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, new ViewProduct_Fragment(postList.get(position)));
+                transaction.addToBackStack(null);
+                transaction.commit();
+
             }
+
         });
         //
         CommonUtil.getInstance().setTextFieldValuesFromObject(holder.productTitle,objectValueMap,"PRODUCT_TITLE");

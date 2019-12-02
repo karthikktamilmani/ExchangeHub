@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+
 public class CommonUtil {
     //Email Validation pattern
     public static final String regEx = "[a-zA-Z0-9]+[a-zA-Z0-9.%\\-\\+]*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,4}";
@@ -29,6 +30,7 @@ public class CommonUtil {
     public static final String LOGGED_IN_PREF = "logged_in_status";
     public static final String LOGGED_IN_USERID = "logged_user";
     public static final String VIEW_PRODUCT_FRAGMENT = "ViewProduct_Fragment";
+    private String LoginURL = "http://3e69b915.ngrok.io/Login";
     //
     private static FragmentManager fragmentManager;
     private static CommonUtil object = null;
@@ -50,17 +52,24 @@ public class CommonUtil {
     {
         if( object == null ) {
             object = new CommonUtil();
-            fragmentManager = MainActivity.getMainFragmentManager();
+            fragmentManager = MainActivityStart.getMainFragmentManager();
         }
         return object;
     }
     //
-    void showHomePageFragment() {
+   /* void showHomePageFragment() {
         fragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.left_enter, R.anim.right_out)
                 .replace(R.id.frameContainer, new HomePage_Fragment(),
-                        CommonUtil.HOMEPAGE_FRAGMENT).commitAllowingStateLoss();
+                        CommonUtil.HOMEPAGE_FRAGMENT).commit();
+    }*/
+    void showLoginFragment() {
+        fragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.left_enter, R.anim.right_out)
+                .replace(R.id.frameContainer, new Login_Fragment(),
+                        CommonUtil.Login_Fragment).commit();
     }
 
     void showErrorTextLayout(TextInputLayout elementObj, String errorMsg)
@@ -73,7 +82,7 @@ public class CommonUtil {
         elementObj.setEndIconDrawable(R.drawable.error);
     }
 
-    void hideErrorTextLayout(TextInputLayout elementObj,int endIconMode )
+    void hideErrorTextLayout(TextInputLayout elementObj, int endIconMode )
     {
         elementObj.setHelperTextEnabled(Boolean.FALSE);
         elementObj.setEndIconMode(endIconMode);
@@ -86,17 +95,53 @@ public class CommonUtil {
         return appContext;
     }
 
-    Object loginToAccount(String emailId, String password)
+   /* Object loginToAccount(final String emailId, final String password)
     {
         // TODO::
         // check the db and if true
+
         if(true)
         {
             // if true return the userID
-            return "1234";
+            Object res = null;
+            StringRequest jsonObjRequest = new StringRequest(Request.Method.POST, LoginURL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                System.out.println("Response from server");
+                                JSONObject jsonObject = new JSONObject(response);
+                                String Response = jsonObject.getString("userid");
+                                System.out.println(Response);
+                                res = Response;
+                                //Toast.makeText(getContext(),Response,Toast.LENGTH_SHORT).show();
+                            }
+                            catch (JSONException e){
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println(error.getMessage());
+
+                }
+            })
+            {
+                protected Map<String,String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("email",emailId);
+                    params.put("pass",password);
+                    return params;
+                }
+            };
+            MySingleton.getInstance(getAppContext()).addToRequestQueue(jsonObjRequest);
+            return res;
         }
         return null;
-    }
+    }*/
 
     public void flipper(int image, ViewFlipper vf)
     {
@@ -145,12 +190,10 @@ public class CommonUtil {
         fragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.left_enter, R.anim.right_out)
-                .replace(R.id.frameContainer, new ViewProduct_Fragment(valueMap),
+                .replace(R.id.nav_host_fragment, new ViewProduct_Fragment(valueMap),
                         CommonUtil.VIEW_PRODUCT_FRAGMENT)
                 .addToBackStack(null)
                 .commit();
-        //
-
 
         // to roll-back to the previous transaction -> addToBackStack(null)
     }
@@ -192,4 +235,5 @@ public class CommonUtil {
         }
     }
 
-}
+
+    }

@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
 
-public class ViewProduct_Fragment extends Fragment implements View.OnClickListener  {
+public class ViewProduct_Fragment extends Fragment implements View.OnClickListener {
 
     private static View view;
     private ViewFlipper vf;
@@ -52,12 +53,12 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
         prdtImg = view.findViewById(R.id.flipper);
         //
         //
-        CommonUtil.getInstance().setTextFieldValuesFromObject(productTitle,objectValueMap,"PRODUCT_TITLE");
-        CommonUtil.getInstance().setTextFieldValuesFromObject(productPrice,objectValueMap,"PRODUCT_PRICE");
-        CommonUtil.getInstance().setTextFieldValuesFromObject(productDescription,objectValueMap,"PRODUCT_DESCRIPTION");
+        CommonUtil.getInstance().setTextFieldValuesFromObject(productTitle, objectValueMap, "PRODUCT_TITLE");
+        CommonUtil.getInstance().setTextFieldValuesFromObject(productPrice, objectValueMap, "PRODUCT_PRICE");
+        CommonUtil.getInstance().setTextFieldValuesFromObject(productDescription, objectValueMap, "PRODUCT_DESCRIPTION");
         //
-        productLocation.setText( "Pick From: " + CommonUtil.getInstance().getAddressFromLatLng((LatLng) objectValueMap.get("PRODUCT_LOCATION")));
-        prdtImg.setImageResource((int)objectValueMap.get("PRODUCT_IMAGE"));
+        productLocation.setText("Pick From: " + CommonUtil.getInstance().getAddressFromLatLng((LatLng) objectValueMap.get("PRODUCT_LOCATION")));
+        prdtImg.setImageResource((int) objectValueMap.get("PRODUCT_IMAGE"));
         //
         //int images = (int)objectValueMap.get("PRODUCT_IMAGE");
         //CommonUtil.getInstance().flipper((int)objectValueMap.get("PRODUCT_IMAGE"),vf);
@@ -67,14 +68,14 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
          * TODO: get the image from DB and use flipper to showcase them
          *
          *
-        int images[] = {R.drawable.slide1,R.drawable.slide2};
+         int images[] = {R.drawable.slide1,R.drawable.slide2};
 
 
 
-        for (int image : images)
-        {
-            CommonUtil.getInstance().flipper(image,vf);
-        }
+         for (int image : images)
+         {
+         CommonUtil.getInstance().flipper(image,vf);
+         }
          */
 
         //
@@ -101,7 +102,6 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
         switch (v.getId()) {
 
 
-
         }
         //
     }
@@ -120,5 +120,5 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }
+

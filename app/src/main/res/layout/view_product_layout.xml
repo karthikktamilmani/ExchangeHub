@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--            <ViewFlipper-->
-    <!--                android:id="@+id/flipper"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_centerHorizontal="true"/>-->
+<!--    <ViewFlipper-->
+<!--        android:id="@+id/flipper"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="250dp"-->
+<!--        android:layout_centerHorizontal="true"/>-->
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -18,6 +18,7 @@
         android:id="@+id/flipper"
         android:src="@mipmap/default_no_image"
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,7 +68,7 @@
                 android:paddingEnd="5dp"
                 android:text="Price"
                 android:textColor="@color/colorPrimary"
-                android:textSize="25sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -78,33 +79,35 @@
             android:text="Description of the product"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
+            android:textStyle="bold"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
             />
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        >
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_location_on_black_24dp" />
-            <TextView
-                android:id="@+id/prodPlace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Place"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:textColor="#3498db"
-                android:textSize="15sp"
-                />
-        </LinearLayout>
+            android:src="@drawable/ic_location_on_black_24dp" />
+        <TextView
+            android:id="@+id/prodPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Place"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textColor="#3498db"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"

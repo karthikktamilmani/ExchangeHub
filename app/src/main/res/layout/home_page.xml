@@ -21,7 +21,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:hint="Search Here"
+            android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:drawableEnd="@drawable/search_icon_foreground"
+            android:inputType="text"
             />
 
 

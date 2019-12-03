@@ -76,7 +76,7 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
                 //CommonUtil.getInstance().showProductFragment(postList.get(position));
                 //
                 //load ViewProduct_Fragment
-                FragmentTransaction transaction = HomeFragment.getMainFragmentManager().beginTransaction();
+                FragmentTransaction transaction = HomeFragment.getMainFragmentManager().beginTransaction().setCustomAnimations(R.anim.right_enter, R.anim.left_out);
                 transaction.replace(R.id.nav_host_fragment, new ViewProduct_Fragment(postList.get(position)));
                 transaction.addToBackStack(null);
                 transaction.commit();

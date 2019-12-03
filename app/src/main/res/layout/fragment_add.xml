@@ -11,44 +11,111 @@
         android:layout_height="match_parent">
     <ImageView
         android:id="@+id/ProductImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="140dp"
+        android:layout_height="115dp"
         android:layout_marginTop="30dp"
+        android:src="@mipmap/upload"
         android:layout_centerHorizontal="true"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/titleLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ProductImage"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:boxBackgroundColor="@color/white"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            app:endIconMode="clear_text"
+        >
+
     <EditText
         android:id="@+id/productTitle"
-        android:layout_below="@+id/ProductImage"
-        android:layout_centerHorizontal="true"
-        android:layout_width="300dp"
+        android:layout_below="@+id/titleLabel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="Give Title..."/>
+        android:hint="Title"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:singleLine="false"
         android:id="@+id/DescriptionLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/productTitle"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="15dp"
-        android:text="Description"/>
+        android:layout_below="@+id/titleLabel"
+        app:boxBackgroundColor="@color/white"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        >
 
     <EditText
         android:id="@+id/descriptioneditText"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/productTitle"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/DescriptionLabel"/>
+        android:inputType="text|textMultiLine"
+        android:hint="Description"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/Price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_below="@+id/DescriptionLabel">
+        <EditText
+            android:id="@+id/cost"
+            android:layout_width="match_parent"
+            android:inputType="numberDecimal"
+            android:hint="Price (CA$)"
+            android:layout_height="wrap_content"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/Free"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/cost"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:text="Free"/>-->
+<!--        <Switch-->
+<!--            android:id="@+id/FreeSwitch"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/Price"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:layout_marginLeft="65dp"-->
+<!--            android:layout_toRightOf="@+id/Free"/>-->
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:spinnerMode="dropdown"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@+id/Price"
+            android:paddingBottom="20dp"
+            />
 
     <TextView
         android:id="@+id/locationlabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/location"
-        android:layout_below="@+id/descriptioneditText"
+        android:layout_below="@+id/spinner"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"/>
 
@@ -152,73 +219,13 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/Price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price"
-        android:layout_marginTop="22dp"
-        android:layout_marginLeft="15dp"
-        android:layout_below="@+id/card_view"/>
-    <EditText
-        android:id="@+id/cost"
-        android:layout_width="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/Price"
-        android:layout_marginLeft="65dp"
-        android:inputType="numberDecimal"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/card_view"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CAD"
-        android:layout_toRightOf="@+id/cost"
-        android:layout_below="@+id/card_view"
-        android:layout_marginTop="19dp"/>
-    <TextView
-        android:id="@+id/Free"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Price"
-        android:layout_marginTop="15dp"
-
-        android:layout_marginLeft="15dp"
-        android:text="Free"/>
-    <Switch
-        android:id="@+id/FreeSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Price"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="65dp"
-        android:layout_toRightOf="@+id/Free"/>
-
-    <TextView
-        android:id="@+id/category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Free"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:text="Category"/>
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:spinnerMode="dropdown"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="35dp"
-        android:layout_below="@+id/Free"
-        android:layout_toRightOf="@+id/category"/>
-
     <Button
         android:id="@+id/button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
-        android:layout_below="@+id/spinner"
+        android:layout_below="@+id/card_view"
         android:text="POST"/>
     </RelativeLayout>
 </ScrollView>

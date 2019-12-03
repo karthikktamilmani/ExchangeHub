@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -10,6 +12,7 @@ import android.widget.ViewFlipper;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.myapplication.ui.home.HomeFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -200,7 +203,7 @@ public class CommonUtil {
 
     public void showPreviousFragment()
     {
-        fragmentManager.popBackStackImmediate();
+        HomeFragment.getMainFragmentManager().popBackStackImmediate();
     }
 
     //
@@ -235,5 +238,11 @@ public class CommonUtil {
         }
     }
 
-
+    //
+    public void logoutApp()
+    {
+        SaveSharedPreference.setLoggedIn(appContext, false, (String)null);
     }
+
+
+}

@@ -28,6 +28,9 @@
     <string name="filters">Filters</string>
     <string name="distance">Distance within (km)</string>
     <string name="url">http://030cc8c3.ngrok.io</string>
+    <string name="log">Activity</string>
+    <string name="event">Activity event</string>
+    <string name="share_using">Share Via</string>
     <string-array name="categoryList">
         <item>Books</item>
         <item>Accessories</item>

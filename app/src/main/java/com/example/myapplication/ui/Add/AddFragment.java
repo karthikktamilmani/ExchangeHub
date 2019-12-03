@@ -83,6 +83,7 @@ public class AddFragment extends Fragment
     Bitmap image;
     TextView tvAddress;
     TextView tvEmpty;
+    private ImageView prodtImage;
     public View view;
 
     private boolean mTrackingLocation;
@@ -97,8 +98,9 @@ public class AddFragment extends Fragment
         tvEmpty = view.findViewById(R.id.tvEmpty);
         btn = view.findViewById(R.id.button);
         rlPick = view.findViewById(R.id.rlPickLocation);
-
-        AlertDialog.Builder DialogBuilder = new AlertDialog.Builder(getContext());
+        prodtImage = view.findViewById(R.id.ProductImage);
+        //
+        final AlertDialog.Builder DialogBuilder = new AlertDialog.Builder(getContext());
         DialogBuilder.setTitle("Select Action");
         String[] DialogBuilderItems = {
                 "Gallery",
@@ -117,7 +119,24 @@ public class AddFragment extends Fragment
                         }
                     }
                 });
-        DialogBuilder.show();
+        //
+        prodtImage.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v) {
+                DialogBuilder.show();
+            }
+        });
+        //
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                .createFromResource(getActivity(), R.array.categoryList,
+                        android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        Category.setAdapter(staticAdapter);
 
         rlPick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,16 +182,6 @@ public class AddFragment extends Fragment
                     ib.setImageBitmap(image);
                     Spinner staticSpinner = view.findViewById(R.id.spinner);
 
-                    // Create an ArrayAdapter using the string array and a default spinner
-                    ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
-                            .createFromResource(getActivity(), R.array.categoryList,
-                                    android.R.layout.simple_spinner_item);
-
-                    // Specify the layout to use when the list of choices appears
-                    staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                    // Apply the adapter to the spinner
-                    staticSpinner.setAdapter(staticAdapter);
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

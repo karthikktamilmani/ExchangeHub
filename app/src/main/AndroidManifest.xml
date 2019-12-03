@@ -4,12 +4,14 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ex"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".parseServer"
         android:theme="@style/AppTheme">
 
         <activity
@@ -28,6 +30,7 @@
         <activity android:name=".ProductPage"></activity>
         <activity android:name=".PasswordChangeActivity"></activity>
         <activity android:name=".ProfileSettings" />
+        <activity android:name=".ui.chat.ChatModule"/>
     </application>
 
 </manifest>

@@ -42,7 +42,7 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
         view = inflater.inflate(R.layout.view_product_layout, container, false);
         //vf = view.findViewById(R.id.flipper);
         //
-        CommonUtil.getInstance().getMainActionBar().setDisplayHomeAsUpEnabled(true);
+//        CommonUtil.getInstance().getMainActionBar().setDisplayHomeAsUpEnabled(true);
         //CommonUtil.getInstance().getMainActionBar().setHasOptionsMenu(true);
         setHasOptionsMenu(true);
         //

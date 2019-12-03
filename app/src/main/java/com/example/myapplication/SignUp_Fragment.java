@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +21,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,6 +74,22 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
         signupLayout = (LinearLayout) view.findViewById(R.id.signup_layout);
         shakeAnimation = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.shake);
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                updatePasswordStrengthView(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         signUpURL = getResources().getString(R.string.url)+"/SignUp";
 
         // Setting text selector over textviews
@@ -144,6 +163,35 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
                 break;
         }
 
+    }
+
+    private void updatePasswordStrengthView(String password) {
+
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
+        TextView strengthView = view.findViewById(R.id.password_strength);
+        if (TextView.VISIBLE != strengthView.getVisibility())
+            return;
+
+        if (password.isEmpty()) {
+            strengthView.setText("");
+            progressBar.setProgress(0);
+            return;
+        }
+
+        PasswordStrength str = PasswordStrength.calculateStrength(password);
+        strengthView.setText(str.getText(getActivity()));
+        strengthView.setTextColor(str.getColor());
+
+        progressBar.getProgressDrawable().setColorFilter(str.getColor(), android.graphics.PorterDuff.Mode.SRC_IN);
+        if (str.getText(getActivity()).equals("Weak")) {
+            progressBar.setProgress(25);
+        } else if (str.getText(getActivity()).equals("Medium")) {
+            progressBar.setProgress(50);
+        } else if (str.getText(getActivity()).equals("Strong")) {
+            progressBar.setProgress(75);
+        } else {
+            progressBar.setProgress(100);
+        }
     }
 
     // Check Validation Method

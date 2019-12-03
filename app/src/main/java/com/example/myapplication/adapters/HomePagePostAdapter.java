@@ -87,7 +87,12 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
         //
         CommonUtil.getInstance().setTextFieldValuesFromObject(holder.productTitle,objectValueMap,"PRODUCT_TITLE");
         CommonUtil.getInstance().setTextFieldValuesFromObject(holder.productPrice,objectValueMap,"PRODUCT_PRICE");
-        holder.productDescription.setText(objectValueMap.get("PRODUCT_DESCRIPTION").toString());
+        String prodtDes = objectValueMap.get("PRODUCT_DESCRIPTION").toString();
+        if( prodtDes.length() > 50)
+        {
+            prodtDes = prodtDes.substring(0,50) + "...";
+        }
+        holder.productDescription.setText(prodtDes);
         holder.productImage.setImageResource((int)objectValueMap.get("PRODUCT_IMAGE"));
         //holder.imageView.setImageResource(R.drawable.computer_foreground);
         final ScaleAnimation scaleAnimation;

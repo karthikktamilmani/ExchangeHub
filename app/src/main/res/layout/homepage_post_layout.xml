@@ -48,6 +48,7 @@
                     android:layout_height="fill_parent"
                     android:id="@+id/cardPrice"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     />
             </LinearLayout>
             <LinearLayout

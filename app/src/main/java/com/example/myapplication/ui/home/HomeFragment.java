@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private IndicatorSeekBar distanceSeekBar;
     private TextInputEditText searchText;
     private ChipGroup filterChipGroup;
-    private Chip beautyChip, accessoriesChip, computerChip, electronicschip, mobilesChip;
+    private Chip beautyChip, accessoriesChip, computerChip, electronicschip, mobilesChip, furnitureChip;
     private HomePagePostAdapter postAdapter;
     private ArrayList postLists, postListWithoutSearchCrit;
     private RecyclerView recyclerView;
@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         electronicschip =view.findViewById(R.id.electronics_chip);
         computerChip =view.findViewById(R.id.computer_chip);
         mobilesChip =view.findViewById(R.id.mobile_chip);
+        furnitureChip = view.findViewById(R.id.furniture_chip);
         fragmentManager = getFragmentManager();
         //
         recyclerView.setHasFixedSize(true);
@@ -76,28 +77,49 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         //
         postLists = new ArrayList();
         HashMap prod1 = new HashMap();
-        prod1.put("PRODUCT_TITLE","iPhone XS");
-        prod1.put("PRODUCT_PRICE","CA$500");
-        prod1.put("PRODUCT_DESCRIPTION","Sparsely used, like new. In good condition. No flaws.");
+        prod1.put("PRODUCT_TITLE","iPhone XS Max 64gb Black");
+        prod1.put("PRODUCT_PRICE","CA$1000");
+        prod1.put("PRODUCT_DESCRIPTION","This is a brand new device. Warranty started only a month ago. It has never been out of the box.\n" +
+                "Wife wants to keep here smaller XS.");
         prod1.put("PRODUCT_IMAGE",R.drawable.xs_image);
         prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.593390));
         prod1.put("PRODUCT_CATEGORY","Mobiles");
         postLists.add(prod1);
         prod1 = new HashMap();
-        prod1.put("PRODUCT_TITLE","iPhone XR");
-        prod1.put("PRODUCT_PRICE","CA$300");
-        prod1.put("PRODUCT_DESCRIPTION","Slight dents. Screen in good condition.");
+        prod1.put("PRODUCT_TITLE","64gb Apple Iphone XR");
+        prod1.put("PRODUCT_PRICE","CA$750");
+        prod1.put("PRODUCT_DESCRIPTION","Brand New Unlocked");
         prod1.put("PRODUCT_IMAGE",R.drawable.xr_image);
         prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.593390));
-        prod1.put("PRODUCT_CATEGORY","Accessories");
+        prod1.put("PRODUCT_CATEGORY","Mobiles");
         postLists.add(prod1);
         prod1 = new HashMap();
-        prod1.put("PRODUCT_TITLE","iPhone X");
-        prod1.put("PRODUCT_PRICE","CA$300");
-        prod1.put("PRODUCT_DESCRIPTION","for sale, get it for selfnlsd skdjfnkjsdn ksjfnklsd slkdnflksd");
+        prod1.put("PRODUCT_TITLE","iPhone X 256gb");
+        prod1.put("PRODUCT_PRICE","CA$600");
+        prod1.put("PRODUCT_DESCRIPTION","Perfect condition and was always in a case. I am selling my sides Gold iPhone X with 256GB.\n" +
+                "Has been already unlocked.\n" +
+                "Comes with a real apple charger.");
         prod1.put("PRODUCT_IMAGE",R.drawable.x_image);
         prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.593390));
-        prod1.put("PRODUCT_CATEGORY","Beauty");
+        prod1.put("PRODUCT_CATEGORY","Mobiles");
+        postLists.add(prod1);
+        //
+        prod1 = new HashMap();
+        prod1.put("PRODUCT_TITLE","Vintage gold furniture - Round chair, love seat & coffee table");
+        prod1.put("PRODUCT_PRICE","CA$250");
+        prod1.put("PRODUCT_DESCRIPTION","Cozy, three piece furniture set; with gold-on-gold wave pattern. Unique living room furniture in great shape but with minimal damage to love seat.");
+        prod1.put("PRODUCT_IMAGE",R.drawable.round_chair);
+        prod1.put("PRODUCT_LOCATION" , new LatLng(44.533710, -63.593390));
+        prod1.put("PRODUCT_CATEGORY","Furniture");
+        postLists.add(prod1);
+        //
+        prod1 = new HashMap();
+        prod1.put("PRODUCT_TITLE","Samsung Plasma TV 50");
+        prod1.put("PRODUCT_PRICE","CA$50");
+        prod1.put("PRODUCT_DESCRIPTION","Can't seem to get sound working and has lines during black screen on tv but not really noticeable during play. Does not have original remote.");
+        prod1.put("PRODUCT_IMAGE",R.drawable.samsung);
+        prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.493390));
+        prod1.put("PRODUCT_CATEGORY","Electronics");
         postLists.add(prod1);
         //
         postListWithoutSearchCrit = postLists;
@@ -185,7 +207,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         computerChip.setOnCheckedChangeListener(filterChipListener);
         electronicschip.setOnCheckedChangeListener(filterChipListener);
         mobilesChip.setOnCheckedChangeListener(filterChipListener);
-
+        furnitureChip.setOnCheckedChangeListener(filterChipListener);
 
 
         return view;
@@ -205,7 +227,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
          *TODO: get all the parameters from the filters
          * and search for the post in the DB
          */
-        Chip[] categoryArray = {beautyChip, accessoriesChip, computerChip, electronicschip, mobilesChip};
+        Chip[] categoryArray = {beautyChip, accessoriesChip, computerChip, electronicschip, mobilesChip, furnitureChip};
         ArrayList<Chip> categoryList = new ArrayList<Chip>();
         Collections.addAll(categoryList, categoryArray);
         //
@@ -282,7 +304,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         DEFAULT_LAT_LONG.longitude,prdtLocation.latitude,
                         prdtLocation.longitude,distanceValues);
                 //
-                if( distanceSeekBar.getProgress() == 0 || distanceValues[0] < distanceSeekBar.getProgress()) {
+                if( distanceSeekBar.getProgress() < 20 || distanceValues[0] < distanceSeekBar.getProgress()) {
                     postLists.add(productMap);
                 }
             }

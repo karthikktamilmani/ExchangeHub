@@ -36,6 +36,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
     private ArrayList postLists, postListWithoutSearchCrit;
     private RecyclerView recyclerView;
     private static View view;
+    //current location is hardcoded as Dalhousie university
     private final LatLng DEFAULT_LAT_LONG = new LatLng(44.633710, -63.593390);
 
     @Override
@@ -135,7 +136,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 /**
                  *
-                 * TODO:
                  * change color for Chips
                  *
                  * select the color and uncomment this
@@ -181,7 +181,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
     public void searchPost()
     {
         /**
-         *TODO: get all the parameters from the filters
+         *getting all the parameters from the filters
          * and search for the post in the DB
          */
         Chip[] categoryArray = {beautyChip, accessoriesChip, computerChip, electronicschip, mobilesChip};
@@ -208,7 +208,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
             //
         }
         //
-        //TODO: get current location and add the seekbar radius to it
         String locationSelected = "";
         //
         Iterator<HashMap> productListIter = postListWithoutSearchCrit.iterator();
@@ -252,7 +251,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
             //
             if( doesCategoryMatch )
             {
-                //TODO: implement the location search criteria
                 LatLng prdtLocation = (LatLng) productMap.get("PRODUCT_LOCATION");
                 //
                 float[] distanceValues = new float[3];

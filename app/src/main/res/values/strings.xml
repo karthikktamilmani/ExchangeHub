@@ -32,8 +32,11 @@
     <string name="event">Activity event</string>
     <string name="share_using">Share Via</string>
     <string-array name="categoryList">
-        <item>Books</item>
+        <item>Computers</item>
         <item>Accessories</item>
-        <item>Clothes</item>
+        <item>Electronics</item>
+        <item>Mobiles</item>
+        <item>Furniture</item>
+        <item>Beauty</item>
     </string-array>
 </resources>

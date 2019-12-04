@@ -156,6 +156,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
                     /**
                      *
                      */
+                    //TODO: hardcoding the data -> since we are removing the aws instance
                     Object userId = "1234";
                     if( userId != null ) {
                         Intent i = new Intent(getActivity().getApplicationContext(), MainActivity.class);

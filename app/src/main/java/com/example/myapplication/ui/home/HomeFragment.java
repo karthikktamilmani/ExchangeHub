@@ -44,9 +44,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private ChipGroup filterChipGroup;
     private Chip beautyChip, accessoriesChip, computerChip, electronicschip, mobilesChip, furnitureChip;
     private HomePagePostAdapter postAdapter;
-    private ArrayList postLists, postListWithoutSearchCrit;
+    private ArrayList postLists;
+    private static ArrayList postListWithoutSearchCrit;
     private RecyclerView recyclerView;
     private static View view;
+    //current location is hardcoded as Dalhousie university
     private final LatLng DEFAULT_LAT_LONG = new LatLng(44.633710, -63.593390);
     private static FragmentManager fragmentManager;
 
@@ -58,71 +60,82 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         //initializing views
         searchText = view.findViewById(R.id.searchViewId);
-        recyclerView =view.findViewById(R.id.gridView);
-        distanceSeekBar =view.findViewById(R.id.distanceProgress);
-        filterChipGroup =view.findViewById(R.id.filter_chip);
-        beautyChip =view.findViewById(R.id.beauty_chip);
-        accessoriesChip =view.findViewById(R.id.accessories_chip);
-        electronicschip =view.findViewById(R.id.electronics_chip);
-        computerChip =view.findViewById(R.id.computer_chip);
-        mobilesChip =view.findViewById(R.id.mobile_chip);
+        recyclerView = view.findViewById(R.id.gridView);
+        distanceSeekBar = view.findViewById(R.id.distanceProgress);
+        filterChipGroup = view.findViewById(R.id.filter_chip);
+        beautyChip = view.findViewById(R.id.beauty_chip);
+        accessoriesChip = view.findViewById(R.id.accessories_chip);
+        electronicschip = view.findViewById(R.id.electronics_chip);
+        computerChip = view.findViewById(R.id.computer_chip);
+        mobilesChip = view.findViewById(R.id.mobile_chip);
         furnitureChip = view.findViewById(R.id.furniture_chip);
         fragmentManager = getFragmentManager();
         //
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL,false);
+                LinearLayoutManager.VERTICAL, false);
         linearLayoutManager.setSmoothScrollbarEnabled(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         //
-        postLists = new ArrayList();
-        HashMap prod1 = new HashMap();
-        prod1.put("PRODUCT_TITLE","iPhone XS Max 64gb Black");
-        prod1.put("PRODUCT_PRICE","CA$1000");
-        prod1.put("PRODUCT_DESCRIPTION","This is a brand new device. Warranty started only a month ago. It has never been out of the box.\n" +
-                "Wife wants to keep here smaller XS.");
-        prod1.put("PRODUCT_IMAGE",R.drawable.xs_image);
-        prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.593390));
-        prod1.put("PRODUCT_CATEGORY","Mobiles");
-        postLists.add(prod1);
-        prod1 = new HashMap();
-        prod1.put("PRODUCT_TITLE","64gb Apple Iphone XR");
-        prod1.put("PRODUCT_PRICE","CA$750");
-        prod1.put("PRODUCT_DESCRIPTION","Brand New Unlocked");
-        prod1.put("PRODUCT_IMAGE",R.drawable.xr_image);
-        prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.593390));
-        prod1.put("PRODUCT_CATEGORY","Mobiles");
-        postLists.add(prod1);
-        prod1 = new HashMap();
-        prod1.put("PRODUCT_TITLE","iPhone X 256gb");
-        prod1.put("PRODUCT_PRICE","CA$600");
-        prod1.put("PRODUCT_DESCRIPTION","Perfect condition and was always in a case. I am selling my sides Gold iPhone X with 256GB.\n" +
-                "Has been already unlocked.\n" +
-                "Comes with a real apple charger.");
-        prod1.put("PRODUCT_IMAGE",R.drawable.x_image);
-        prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.593390));
-        prod1.put("PRODUCT_CATEGORY","Mobiles");
-        postLists.add(prod1);
-        //
-        prod1 = new HashMap();
-        prod1.put("PRODUCT_TITLE","Vintage gold furniture - Round chair, love seat & coffee table");
-        prod1.put("PRODUCT_PRICE","CA$250");
-        prod1.put("PRODUCT_DESCRIPTION","Cozy, three piece furniture set; with gold-on-gold wave pattern. Unique living room furniture in great shape but with minimal damage to love seat.");
-        prod1.put("PRODUCT_IMAGE",R.drawable.round_chair);
-        prod1.put("PRODUCT_LOCATION" , new LatLng(44.533710, -63.593390));
-        prod1.put("PRODUCT_CATEGORY","Furniture");
-        postLists.add(prod1);
-        //
-        prod1 = new HashMap();
-        prod1.put("PRODUCT_TITLE","Samsung Plasma TV 50");
-        prod1.put("PRODUCT_PRICE","CA$50");
-        prod1.put("PRODUCT_DESCRIPTION","Can't seem to get sound working and has lines during black screen on tv but not really noticeable during play. Does not have original remote.");
-        prod1.put("PRODUCT_IMAGE",R.drawable.samsung);
-        prod1.put("PRODUCT_LOCATION" , new LatLng(44.633710, -63.493390));
-        prod1.put("PRODUCT_CATEGORY","Electronics");
-        postLists.add(prod1);
-        //
-        postListWithoutSearchCrit = postLists;
+        if (postListWithoutSearchCrit == null || postListWithoutSearchCrit.size() == 0) {
+            //
+            if( postLists == null || postLists.size() == 0 ) {
+                postLists = new ArrayList();
+                //
+                // TODO: //hardcoding the data -> since we are removing the aws instance
+                HashMap prod1 = new HashMap();
+                prod1.put("PRODUCT_TITLE", "iPhone XS Max 64gb Black");
+                prod1.put("PRODUCT_PRICE", "CA$1000");
+                prod1.put("PRODUCT_DESCRIPTION", "This is a brand new device. Warranty started only a month ago. It has never been out of the box.\n" +
+                        "Wife wants to keep here smaller XS.");
+                prod1.put("PRODUCT_IMAGE", R.drawable.xs_image);
+                prod1.put("PRODUCT_LOCATION", new LatLng(44.633710, -63.593390));
+                prod1.put("PRODUCT_CATEGORY", "Mobiles");
+                postLists.add(prod1);
+                prod1 = new HashMap();
+                prod1.put("PRODUCT_TITLE", "64gb Apple Iphone XR");
+                prod1.put("PRODUCT_PRICE", "CA$750");
+                prod1.put("PRODUCT_DESCRIPTION", "Brand New Unlocked");
+                prod1.put("PRODUCT_IMAGE", R.drawable.xr_image);
+                prod1.put("PRODUCT_LOCATION", new LatLng(44.633710, -63.593390));
+                prod1.put("PRODUCT_CATEGORY", "Mobiles");
+                postLists.add(prod1);
+                prod1 = new HashMap();
+                prod1.put("PRODUCT_TITLE", "iPhone X 256gb");
+                prod1.put("PRODUCT_PRICE", "CA$600");
+                prod1.put("PRODUCT_DESCRIPTION", "Perfect condition and was always in a case. I am selling my sides Gold iPhone X with 256GB.\n" +
+                        "Has been already unlocked.\n" +
+                        "Comes with a real apple charger.");
+                prod1.put("PRODUCT_IMAGE", R.drawable.x_image);
+                prod1.put("PRODUCT_LOCATION", new LatLng(44.633710, -63.593390));
+                prod1.put("PRODUCT_CATEGORY", "Mobiles");
+                postLists.add(prod1);
+                //
+                prod1 = new HashMap();
+                prod1.put("PRODUCT_TITLE", "Vintage gold furniture - Round chair, love seat & coffee table");
+                prod1.put("PRODUCT_PRICE", "CA$250");
+                prod1.put("PRODUCT_DESCRIPTION", "Cozy, three piece furniture set; with gold-on-gold wave pattern. Unique living room furniture in great shape but with minimal damage to love seat.");
+                prod1.put("PRODUCT_IMAGE", R.drawable.round_chair);
+                prod1.put("PRODUCT_LOCATION", new LatLng(44.533710, -63.593390));
+                prod1.put("PRODUCT_CATEGORY", "Furniture");
+                postLists.add(prod1);
+                //
+                prod1 = new HashMap();
+                prod1.put("PRODUCT_TITLE", "Samsung Plasma TV 50");
+                prod1.put("PRODUCT_PRICE", "CA$50");
+                prod1.put("PRODUCT_DESCRIPTION", "Can't seem to get sound working and has lines during black screen on tv but not really noticeable during play. Does not have original remote.");
+                prod1.put("PRODUCT_IMAGE", R.drawable.samsung);
+                prod1.put("PRODUCT_LOCATION", new LatLng(44.633710, -63.493390));
+                prod1.put("PRODUCT_CATEGORY", "Electronics");
+                postLists.add(prod1);
+                //
+            }
+            postListWithoutSearchCrit = postLists;
+        }
+        else
+        {
+            postLists = postListWithoutSearchCrit;
+        }
         //
         postAdapter = new HomePagePostAdapter(postLists);
         recyclerView.setAdapter(postAdapter);
@@ -178,7 +191,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 /**
                  *
-                 * TODO:
                  * change color for Chips
                  *
                  * select the color and uncomment this
@@ -224,7 +236,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void searchPost()
     {
         /**
-         *TODO: get all the parameters from the filters
+         *getting all the parameters from the filters
          * and search for the post in the DB
          */
         Chip[] categoryArray = {beautyChip, accessoriesChip, computerChip, electronicschip, mobilesChip, furnitureChip};
@@ -251,7 +263,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             //
         }
         //
-        //TODO: get current location and add the seekbar radius to it
         String locationSelected = "";
         //
         Iterator<HashMap> productListIter = postListWithoutSearchCrit.iterator();
@@ -295,16 +306,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             //
             if( doesCategoryMatch )
             {
-                //TODO: implement the location search criteria
-                LatLng prdtLocation = (LatLng) productMap.get("PRODUCT_LOCATION");
-                //
-                float[] distanceValues = new float[3];
-                //
-                android.location.Location.distanceBetween(DEFAULT_LAT_LONG.latitude,
-                        DEFAULT_LAT_LONG.longitude,prdtLocation.latitude,
-                        prdtLocation.longitude,distanceValues);
-                //
-                if( distanceSeekBar.getProgress() < 20 || distanceValues[0] < distanceSeekBar.getProgress()) {
+                if( productMap.get("PRODUCT_LOCATION") instanceof LatLng) {
+                    LatLng prdtLocation = (LatLng) productMap.get("PRODUCT_LOCATION");
+                    //
+                    float[] distanceValues = new float[3];
+                    //
+                    android.location.Location.distanceBetween(DEFAULT_LAT_LONG.latitude,
+                            DEFAULT_LAT_LONG.longitude, prdtLocation.latitude,
+                            prdtLocation.longitude, distanceValues);
+                    //
+                    if (distanceSeekBar.getProgress() < 20 || distanceValues[0] < distanceSeekBar.getProgress()) {
+                        postLists.add(productMap);
+                    }
+                }
+                else
+                {
                     postLists.add(productMap);
                 }
             }
@@ -319,5 +335,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public static FragmentManager getMainFragmentManager()
     {
         return fragmentManager;
+    }
+    //
+    public static ArrayList getOriginalPostList()
+    {
+        return postListWithoutSearchCrit;
     }
 }

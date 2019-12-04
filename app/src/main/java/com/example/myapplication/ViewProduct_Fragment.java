@@ -4,6 +4,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,8 +30,7 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
 
     public ViewProduct_Fragment(Object valuesMap) {
         /**
-         * TODO: get value from dB and set the values
-         * or while searching every data is fetched and is only replaced
+         * while searching every data is fetched and is only replaced
          *
          */
         this.objectValueMap = (HashMap) valuesMap;
@@ -61,11 +61,22 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
         CommonUtil.getInstance().setTextFieldValuesFromObject(productPrice, objectValueMap, "PRODUCT_PRICE");
         CommonUtil.getInstance().setTextFieldValuesFromObject(productDescription, objectValueMap, "PRODUCT_DESCRIPTION");
         //
-        productLocation.setText("Pick From: " + CommonUtil.getInstance().getAddressFromLatLng((LatLng) objectValueMap.get("PRODUCT_LOCATION")));
+        String address = "";
+        if( objectValueMap.get("PRODUCT_LOCATION") instanceof String)
+        {
+            address = (String)objectValueMap.get("PRODUCT_LOCATION");
+        }
+        else
+        {
+            address = CommonUtil.getInstance().getAddressFromLatLng((LatLng) objectValueMap.get("PRODUCT_LOCATION"));
+        }
+        //
+        final String originalAdd = address;
+        productLocation.setText("Pick From: " + address);
         productLocation.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v) {
-                openMaps(CommonUtil.getInstance().getAddressFromLatLng((LatLng) objectValueMap.get("PRODUCT_LOCATION")));
+                openMaps(originalAdd);
             }
 
         });
@@ -74,19 +85,25 @@ public class ViewProduct_Fragment extends Fragment implements View.OnClickListen
 
             public void onClick(View v) {
                 shareEvent((String) objectValueMap.get("PRODUCT_TITLE"),(String) objectValueMap.get("PRODUCT_PRICE"),
-                        (String) objectValueMap.get("PRODUCT_DESCRIPTION"),
-                        CommonUtil.getInstance().getAddressFromLatLng((LatLng) objectValueMap.get("PRODUCT_LOCATION")));
+                        (String) objectValueMap.get("PRODUCT_DESCRIPTION"),originalAdd);
             }
         });
         //
-        prdtImg.setImageResource((int) objectValueMap.get("PRODUCT_IMAGE"));
+        if( objectValueMap.get("PRODUCT_IMAGE") instanceof Drawable)
+        {
+            prdtImg.setImageDrawable((Drawable)objectValueMap.get("PRODUCT_IMAGE"));
+        }
+        else
+        {
+
+            prdtImg.setImageResource((int)objectValueMap.get("PRODUCT_IMAGE"));
+        }
         //
         //int images = (int)objectValueMap.get("PRODUCT_IMAGE");
         //CommonUtil.getInstance().flipper((int)objectValueMap.get("PRODUCT_IMAGE"),vf);
         //holder.productImage.setImageResource((int)objectValueMap.get("PRODUCT_IMAGE"));
         /**
          *
-         * TODO: get the image from DB and use flipper to showcase them
          *
          *
          int images[] = {R.drawable.slide1,R.drawable.slide2};

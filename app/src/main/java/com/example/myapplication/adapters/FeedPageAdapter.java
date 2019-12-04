@@ -59,8 +59,7 @@ public class FeedPageAdapter extends RecyclerView.Adapter<FeedPageAdapter.FeedVi
     @Override
     public void onBindViewHolder(@NonNull FeedPageAdapter.FeedViewHolder holder, final int position) {
         //
-        //TODO: the arrayList should be ArrayList<HashMap> so that the values are stored in the hashmap and all required values are obtained from that
-        //
+        //hardcoding the data since value cannot be fetched from db
         HashMap objectValueMap = (HashMap) postList.get(position);
         holder.content.setText("{PROFILE_NAME} has liked your post");
         holder.productImage.setImageResource((int)objectValueMap.get("PRODUCT_IMAGE"));

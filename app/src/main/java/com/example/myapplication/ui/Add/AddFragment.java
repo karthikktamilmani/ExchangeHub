@@ -40,6 +40,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -48,11 +49,16 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.myapplication.CommonUtil;
 import com.example.myapplication.CustomToast;
+import com.example.myapplication.HomePage_Fragment;
 import com.example.myapplication.LocationUtil.PermissionUtils;
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.MainActivityStart;
 import com.example.myapplication.MySingleton;
 import com.example.myapplication.R;
+import com.example.myapplication.ViewProduct_Fragment;
+import com.example.myapplication.ui.home.HomeFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -69,6 +75,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -153,7 +160,14 @@ public class AddFragment extends Fragment
 
         // Apply the adapter to the spinner
         Category.setAdapter(staticAdapter);
-
+        //
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                insertData();
+            }
+        });
+        //
         rlPick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -250,12 +264,32 @@ public class AddFragment extends Fragment
         priceText = price.getText().toString();
         CategoryText = Category.getSelectedItem().toString();
 
-        if(productText.isEmpty() || descriptionText.isEmpty() || priceText.isEmpty() || CategoryText.isEmpty()){
-            Toast.makeText(getActivity(),"Check all fields",Toast.LENGTH_LONG).show();
-            insertData();
-        }
 
-        requestService(productText,descriptionText,priceText,CategoryText);
+        if(productText.isEmpty() || descriptionText.isEmpty() || priceText.isEmpty()
+                || CategoryText.isEmpty() || tvAddress.getText().toString().trim().equals("")){
+            Toast.makeText(getActivity(),"Check all fields",Toast.LENGTH_LONG).show();
+            //insertData();
+        }
+        else {
+            // hardcoding for testing since db is switched off in aws
+            HashMap newDataMap = new HashMap();
+            newDataMap.put("PRODUCT_TITLE", productText);
+            newDataMap.put("PRODUCT_PRICE", "CA$" + priceText);
+            newDataMap.put("PRODUCT_DESCRIPTION", descriptionText);
+            newDataMap.put("PRODUCT_IMAGE", prodtImage.getDrawable());
+            newDataMap.put("PRODUCT_LOCATION", tvAddress.getText().toString());
+            newDataMap.put("PRODUCT_CATEGORY", CategoryText);
+            //
+            HomeFragment.getOriginalPostList().add(newDataMap);
+            //
+            Toast.makeText(getActivity(), "Post added", Toast.LENGTH_LONG).show();
+            //
+            //load ViewProduct_Fragment
+            FragmentTransaction transaction = getFragmentManager().beginTransaction().setCustomAnimations(R.anim.right_enter, R.anim.left_out);
+            transaction.replace(R.id.nav_host_fragment, new AddFragment()).commit();
+            //
+            //requestService(productText,descriptionText,priceText,CategoryText);
+        }
     }
 
     private void requestService(final String productText, final String descriptionText, final String priceText,final String categoryText) {

@@ -1,6 +1,7 @@
 package com.example.myapplication.adapters;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,9 +67,8 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, final int position) {
         //
-        //TODO: the arrayList should be ArrayList<HashMap> so that the values are stored in the hashmap and all required values are obtained from that
         //
-        HashMap objectValueMap = (HashMap) postList.get(position);
+        final HashMap objectValueMap = (HashMap) postList.get(position);
         holder.materialCardView.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v) {
@@ -93,7 +93,15 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
             prodtDes = prodtDes.substring(0,50) + "...";
         }
         holder.productDescription.setText(prodtDes);
-        holder.productImage.setImageResource((int)objectValueMap.get("PRODUCT_IMAGE"));
+        if( objectValueMap.get("PRODUCT_IMAGE") instanceof  Drawable)
+        {
+            holder.productImage.setImageDrawable((Drawable)objectValueMap.get("PRODUCT_IMAGE"));
+        }
+        else
+        {
+
+            holder.productImage.setImageResource((int)objectValueMap.get("PRODUCT_IMAGE"));
+        }
         //holder.imageView.setImageResource(R.drawable.computer_foreground);
         final ScaleAnimation scaleAnimation;
         BounceInterpolator bounceInterpolator;
@@ -108,17 +116,20 @@ public class HomePagePostAdapter extends RecyclerView.Adapter<HomePagePostAdapte
                 compoundButton.startAnimation(scaleAnimation);
                 if( isChecked )
                 {
-                    CommonUtil.getInstance().markProductFavourite("");
+                    CommonUtil.getInstance().markProductFavourite(objectValueMap);
                 }
                 else
                 {
-                    CommonUtil.getInstance().unmarkProductFavourite("");
+                    CommonUtil.getInstance().unmarkProductFavourite(objectValueMap);
                 }
             }
         });
         //
 
-        //TODO: based on the values in the list, populate whether it is favourite or not
+        if( objectValueMap.get("IS_FAVOURITE") != null && objectValueMap.get("IS_FAVOURITE").equals(Boolean.TRUE))
+        {
+            holder.buttonFavorite.startAnimation(scaleAnimation);
+        }
     }
 
     @Override

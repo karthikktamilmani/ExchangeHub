@@ -100,7 +100,6 @@ public class CommonUtil {
 
    /* Object loginToAccount(final String emailId, final String password)
     {
-        // TODO::
         // check the db and if true
 
         if(true)
@@ -166,20 +165,24 @@ public class CommonUtil {
      * TODO: enter the productId in DB
      * and also for activityLog, enter this table value too
      *
-     * @param productId
+     * @param productMap
      * @return
      */
-    public void markProductFavourite(String productId)
+    public void markProductFavourite(HashMap productMap)
     {
+        //
+        productMap.put("IS_FAVOURITE", Boolean.TRUE);
         //
     }
 
     /**
      * TODO: remove DB entry
-     * @param productId
+     * @param productMap
      */
-    public void unmarkProductFavourite(String productId)
+    public void unmarkProductFavourite(HashMap productMap)
     {
+        //
+        productMap.put("IS_FAVOURITE", Boolean.FALSE);
         //
     }
 
